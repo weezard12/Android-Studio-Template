@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.GameLoop;
-import com.example.android2dtest.scenes.TestScene;
+import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
+import com.example.android2dtest.scenes.TestScenes.Flappy.FlappyBirdScene;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,11 +14,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TestScene scene = new TestScene(getApplicationContext());
+        FlappyBirdScene scene = new FlappyBirdScene(getApplicationContext());
 
         GameLoop gameLoop = new GameLoop(scene);
         gameLoop.start();
 
         setContentView(scene);
+
+        //entities
+        //scene.addEntity(new GameEntity("hello"));
     }
 }

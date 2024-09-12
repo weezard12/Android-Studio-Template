@@ -71,6 +71,9 @@ public class GameLoop extends Thread {
     }
 
     private void update() {
+        if(scene == null)
+            return;
+        scene.update(DELTA_TIME);
         // Game update logic goes here
         // DELTA_TIME can be used to adjust game physics or animations
     }
