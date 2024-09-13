@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 
 import com.example.android2dtest.gameLogic.myECS.GameScene;
+import com.example.android2dtest.gameLogic.myECS.Transform;
 import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
 import com.example.android2dtest.gameLogic.myECS.components.RenderableComponent;
 

@@ -1,4 +1,4 @@
-package com.example.android2dtest.gameLogic.myECS.entities;
+package com.example.android2dtest.gameLogic.myECS;
 
 import android.graphics.PointF;
 

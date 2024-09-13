@@ -9,6 +9,7 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import com.example.android2dtest.gameLogic.ContentManager;
 import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.extraComponents.touch.TouchBase;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
@@ -22,6 +23,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     private List<GameEntity> entities;
 
     private final List<TouchBase> touchables;
+
+    public ContentManager contentManager;
 
     public void addTouchable(TouchBase touchable){
         touchables.add(touchable);
@@ -44,6 +47,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         entities = new ArrayList<>();
         touchables = new ArrayList<>();
+        contentManager = new ContentManager(context);
     }
 
     //this method will be called from the game loop.
