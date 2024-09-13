@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 
 import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
+import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         for(GameEntity entity : entities)
             entity.render(GameLoop.DELTA_TIME, canvas);
 
+        //draw physics debug
+        PhysicsSystem.debugRenderPhysics(canvas);
 
 /*        Paint paint = new Paint();
         paint.setColor(Color.WHITE);
@@ -72,6 +75,9 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         for(GameEntity entity : entities){
             entity.update(delta);
         }
+
+        //updates physics
+        PhysicsSystem.update(delta);
     }
 
     public void addEntity(GameEntity entity){

@@ -30,8 +30,7 @@ public class CircleRendererComponent extends RenderableComponent {
     @Override
     public void render(float delta, Canvas canvas) {
         super.render(delta, canvas);
-        canvas.drawCircle(entity.getTransform().x, entity.getTransform().y,radius,color);
-        canvas.drawCircle(entity.getTransform().x, entity.getTransform().y,radius,color);
+        canvas.drawCircle(entity.getTransform().getX(), entity.getTransform().getY(),radius,color);
         //log("aaaaa");
     }
 }

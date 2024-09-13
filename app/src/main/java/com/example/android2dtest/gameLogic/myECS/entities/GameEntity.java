@@ -58,12 +58,12 @@ public class GameEntity {
 
     public Transform getTransform(){return transform;}
     public void setPosition(float x, float y){
-        transform.x = x;
-        transform.y = y;
+        transform.position.x = x;
+        transform.position.y = y;
     }
     public void setPosition(Point position){
-        transform.x = position.x;
-        transform.y = position.y;
+        transform.position.x = position.x;
+        transform.position.y = position.y;
     }
 
     public void attachToScene(GameScene scene){

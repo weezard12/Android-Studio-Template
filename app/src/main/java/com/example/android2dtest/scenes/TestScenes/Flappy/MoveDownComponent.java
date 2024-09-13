@@ -7,7 +7,7 @@ public class MoveDownComponent extends GameComponent {
     @Override
     public void update(float delta) {
         super.update(delta);
-        entity.setPosition(entity.getTransform().x, entity.getTransform().y - velocity);
+        entity.setPosition(entity.getTransform().getX(), entity.getTransform().getY() - velocity);
         velocity -= delta * 1.5;
     }
 }

@@ -1,12 +1,14 @@
 package com.example.android2dtest.gameLogic.myECS.entities;
 
+import android.graphics.PointF;
+
 public class Transform {
-    public float x;
-    public float y;
+    public PointF position;
+    public float getX(){return position.x;}
+    public float getY(){return position.y;}
     public float rotation;
     public Transform(){
-        x = 0;
-        y = 0;
+        position = new PointF();
         rotation = 0;
     }
 }
