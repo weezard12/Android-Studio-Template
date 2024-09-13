@@ -1,5 +1,7 @@
 package com.example.android2dtest.gameLogic.myPhysics;
 
+import com.example.android2dtest.gameLogic.myPhysics.shapes.Circle;
+
 import java.util.List;
 
 public class CircleCollider extends Collider{

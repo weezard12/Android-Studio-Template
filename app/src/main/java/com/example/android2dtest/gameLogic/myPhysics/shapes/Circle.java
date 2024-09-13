@@ -1,11 +1,9 @@
-package com.example.android2dtest.gameLogic.myPhysics;
+package com.example.android2dtest.gameLogic.myPhysics.shapes;
 
 import static com.example.android2dtest.gameLogic.MyDebug.log;
 import static com.example.android2dtest.main.MyUtils.distance;
 
-import android.graphics.Point;
 import android.graphics.PointF;
-import android.location.Location;
 
 public class Circle extends Shape{
     public float radius;

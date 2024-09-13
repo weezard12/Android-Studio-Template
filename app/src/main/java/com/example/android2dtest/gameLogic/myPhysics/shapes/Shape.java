@@ -1,6 +1,5 @@
-package com.example.android2dtest.gameLogic.myPhysics;
+package com.example.android2dtest.gameLogic.myPhysics.shapes;
 
-import android.graphics.Point;
 import android.graphics.PointF;
 
 public abstract class Shape {

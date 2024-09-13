@@ -2,8 +2,10 @@ package com.example.android2dtest.gameLogic.myPhysics;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DrawFilter;
 import android.graphics.Paint;
+
+import com.example.android2dtest.gameLogic.myPhysics.shapes.Circle;
+import com.example.android2dtest.gameLogic.myPhysics.shapes.Shape;
 
 import java.util.ArrayList;
 import java.util.List;

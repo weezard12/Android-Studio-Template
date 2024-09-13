@@ -2,6 +2,7 @@ package com.example.android2dtest.gameLogic.myPhysics;
 
 import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
+import com.example.android2dtest.gameLogic.myPhysics.shapes.Shape;
 
 import java.util.List;
 
