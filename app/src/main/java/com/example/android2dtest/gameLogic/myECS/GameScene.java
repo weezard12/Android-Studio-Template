@@ -2,10 +2,7 @@ package com.example.android2dtest.gameLogic.myECS;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,15 +10,25 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import com.example.android2dtest.gameLogic.GameLoop;
+import com.example.android2dtest.gameLogic.extraComponents.touch.TouchBase;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
+import com.example.android2dtest.gameLogic.extraComponents.touch.DraggableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
-
     private List<GameEntity> entities;
+
+    private final List<TouchBase> touchables;
+
+    public void addTouchable(TouchBase touchable){
+        touchables.add(touchable);
+    }
+    public void removeTouchable(TouchBase touchable){
+        touchables.remove(touchable);
+    }
 
     public Point getViewCenter() {
         int centerX = getWidth() / 2;
@@ -29,14 +36,29 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
 
         return new Point(centerX, centerY);
     }
-
+    /**
+    * WARNING when inheriting the class do not use the constructor scene init logic!
+     * override the start method so you cant get null reference when creating entities at the scene start.
+     */
     public GameScene(Context context) {
         super(context);
         entities = new ArrayList<>();
+        touchables = new ArrayList<>();
+    }
+
+    //this method will be called from the game loop.
+    //override it for scene start logic
+    public void start(){
+
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        //updates entities that needs a touch event
+        for (TouchBase touchable : touchables)
+            touchable.onTouchEvent(event);
+
         // Check if the event is a click
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             // Get the X and Y coordinates of the touch

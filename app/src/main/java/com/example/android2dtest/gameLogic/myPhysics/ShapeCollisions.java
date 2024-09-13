@@ -7,7 +7,7 @@ import android.graphics.PointF;
 public final class ShapeCollisions {
 
     // Circle-to-Circle Collision
-    public boolean circleToCircle(Circle c1, Circle c2) {
+    public static boolean circleToCircle(Circle c1, Circle c2) {
         float dx = (c1.center.x + c1.offset.x) - (c2.center.x + c2.offset.x);
         float dy = (c1.center.y + c1.offset.y) - (c2.center.y + c2.offset.y);
         float distance = (float) Math.sqrt(dx * dx + dy * dy);
@@ -15,7 +15,7 @@ public final class ShapeCollisions {
     }
 
     // Circle-to-Box Collision
-    public boolean circleToBox(Circle circle, Box box) {
+    public static boolean circleToBox(Circle circle, Box box) {
         // Circle center position
         float circleX = circle.center.x + circle.offset.x;
         float circleY = circle.center.y + circle.offset.y;
@@ -40,7 +40,7 @@ public final class ShapeCollisions {
     }
 
     // Box-to-Box Collision (Axis-Aligned Bounding Boxes)
-    public boolean boxToBox(Box b1, Box b2) {
+    public static boolean boxToBox(Box b1, Box b2) {
         // Get box boundaries
         float b1Left = b1.center.x - b1.width / 2 + b1.offset.x;
         float b1Right = b1.center.x + b1.width / 2 + b1.offset.x;

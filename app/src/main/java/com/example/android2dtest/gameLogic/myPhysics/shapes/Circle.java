@@ -5,6 +5,8 @@ import static com.example.android2dtest.main.MyUtils.distance;
 
 import android.graphics.PointF;
 
+import com.example.android2dtest.gameLogic.myPhysics.ShapeCollisions;
+
 public class Circle extends Shape{
     public float radius;
     public Circle(float radius){
@@ -13,17 +15,11 @@ public class Circle extends Shape{
 
     @Override
     public boolean collidesWith(Shape other) {
-        if (other instanceof Circle){
-            Circle otherCircle = (Circle) other;
-            float dx = (this.center.x + this.offset.x) - (otherCircle.center.x + otherCircle.offset.x);
-            float dy = (this.center.y + this.offset.y) - (otherCircle.center.y + otherCircle.offset.y);
-            float distance = (float) Math.sqrt(dx * dx + dy * dy);
-            return distance < this.radius + otherCircle.radius;
+        if (other instanceof Circle)
+            return ShapeCollisions.circleToCircle(this,(Circle) other);
+        if (other instanceof Box)
+            return ShapeCollisions.circleToBox(this,(Box) other);
 
-        }
-        else {
-            log("collision shape not implemented!");
-        }
         return false;
     }
 

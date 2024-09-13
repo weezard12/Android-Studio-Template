@@ -3,7 +3,10 @@ package com.example.android2dtest.gameLogic.myPhysics;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 
+import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Circle;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Shape;
 
@@ -14,9 +17,21 @@ import java.util.List;
 public class PhysicsSystem {
     public static final List<Collider> colliders = new ArrayList<>();
 
+    public static final Paint OUTLINE_PAINT = new Paint();
+    public static final Paint COLLIDER_POS = new Paint();
+    public static final Paint COLLIDER_CENTER = new Paint();
+
     // This will be called at the beginning of the game to initialize any colliders
-    public void init() {
-        // Initialization logic, if needed
+    public static void init() {
+        OUTLINE_PAINT.setColor(Color.RED);
+        OUTLINE_PAINT.setStrokeWidth(5);
+        OUTLINE_PAINT.setStyle(Paint.Style.STROKE);
+
+        COLLIDER_POS.setColor(Color.BLUE);
+        COLLIDER_POS.setStyle(Paint.Style.FILL);
+
+        COLLIDER_CENTER.setColor(Color.GREEN);
+        COLLIDER_CENTER.setStyle(Paint.Style.FILL);
     }
 
     // This is the main update loop that checks for collisions
@@ -41,15 +56,24 @@ public class PhysicsSystem {
     }
     public static void debugRenderPhysics(Canvas canvas){
 
-        Paint debugPaint = new Paint();
-        debugPaint.setColor(Color.RED);
-
         for (Collider collider : PhysicsSystem.colliders) {
             Shape shape = collider.getCollisionShape();
+            float sX = shape.center.x + shape.offset.x;
+            float sY = shape.center.y + shape.offset.y;
+
             if(shape instanceof Circle){
                 Circle circle = (Circle)shape;
-                canvas.drawCircle(circle.center.x,circle.center.y,circle.radius,debugPaint);
+                canvas.drawCircle(sX,sY,circle.radius,OUTLINE_PAINT);
             }
+            else if(shape instanceof Box){
+                Box box = (Box) shape;
+                canvas.drawRect(new RectF(sX - (box.width / 2),sY+(box.height / 2),sX + (box.width / 2),sY-(box.height/2)),OUTLINE_PAINT);
+            }
+
+            //draws shape center position
+            canvas.drawRect(shape.center.x-5,shape.center.y+5,shape.center.x+5,shape.center.y-5,COLLIDER_CENTER);
+            //draws shape position (center + offset)
+            canvas.drawRect(sX-10,sY+10,sX+10,sY-10,COLLIDER_POS);
 
         }
     }

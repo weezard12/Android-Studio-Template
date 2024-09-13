@@ -15,6 +15,10 @@ public class GameEntity {
     public GameScene scene;
     Transform transform;
 
+    //transform shortcuts
+    public float getX(){return transform.getX();}
+    public float getY(){return transform.getY();}
+
     List<GameComponent> components;
     List<RenderableComponent> renderableComponents;
     public GameEntity(String name){

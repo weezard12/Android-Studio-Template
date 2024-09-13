@@ -9,8 +9,8 @@ public class GameLoop extends Thread {
     public static boolean GAME_RUNNING = true;
 
     public static float DELTA_TIME = 0;
-    public static final float UPS_MAX = 30; // Updates per second
-    public static final float RPS_MAX = 30; // Frames per second
+    public static final float UPS_MAX = 60; // Updates per second
+    public static final float RPS_MAX = 60; // Frames per second
 
     private static final float NS_PER_UPDATE = 1000000000.0f / UPS_MAX;
     private static final float NS_PER_RENDER = 1000000000.0f / RPS_MAX;
@@ -28,6 +28,7 @@ public class GameLoop extends Thread {
     }
     public GameLoop(GameScene scene){
         this.scene = scene;
+        scene.start();
     }
 
     @Override
@@ -97,6 +98,10 @@ public class GameLoop extends Thread {
         }
     }
 
+    public void setScene(GameScene scene){
+        this.scene = scene;
+        scene.start();
+    }
 
     //Debug
     private void debugLogStats(){
