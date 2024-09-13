@@ -44,10 +44,10 @@ public class SpriteRenderer extends RenderableComponent {
 
         // Calculate the source and destination rectangles
         RectF destinationRect = new RectF(
-                entityX,
-                entityY,
-                entityX + (texture.getWidth() * scaleX),
-                entityY + (texture.getHeight() * scaleY)
+                entityX - (texture.getWidth() * scaleX / 2),
+                entityY - (texture.getHeight() * scaleY / 2),
+                entityX + (texture.getWidth() * scaleX / 2),
+                entityY + (texture.getHeight() * scaleY / 2)
         );
         // Draw the bitmap on the canvas, applying the scaling and positioning
         canvas.drawBitmap(texture, null, destinationRect, paint);
