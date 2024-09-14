@@ -32,20 +32,21 @@ public class TicTacToe extends GameScene {
     @Override
     public void start() {
         setBackgroundColor(Color.BLUE);
+        setBackgroundImage(contentManager.loadTextureFromDrawable(R.drawable.board_background));
 
         GameEntity board = new GameEntity("board");
         addEntity(board);
-        board.addComponent(new SpriteRenderer(new Sprite(contentManager.loadTextureFromDrawable(R.drawable.tic_tac_toe))));
-        board.addComponent(new BoxCollider(200, 200));
-        board.addComponent(new DraggableComponent(board.getComponent(BoxCollider.class)));
-        board.addComponent(new TextRenderer("Tic Tac Toe"));
         board.setPosition(getSurfaceCenter());
+        board.addComponent(new SpriteRenderer(new Sprite(contentManager.loadTextureFromDrawable(R.drawable.tic_tac_toe))));
+        board.addComponent(new TextRenderer("Tic Tac Toe"));
+        board.getComponent(TextRenderer.class).paint.setTextSize(300);
+        board.getComponent(TextRenderer.class).setOffset(0,-750);
 
         turnText = new TextRenderer("X's Turn");
-        turnText.paint.setTextSize(100);
+        turnText.paint.setTextSize(200);
         GameEntity turnEntity = new GameEntity("turn");
         turnEntity.addComponent(turnText);
-        turnEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y + 500);
+        turnEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y + 750);
         addEntity(turnEntity);
 
         for (int y = 0; y < 3; y++) {
