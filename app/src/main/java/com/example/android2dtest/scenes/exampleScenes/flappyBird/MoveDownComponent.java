@@ -1,4 +1,4 @@
-package com.example.android2dtest.scenes.TestScenes.Flappy;
+package com.example.android2dtest.scenes.exampleScenes.flappyBird;
 
 import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
 

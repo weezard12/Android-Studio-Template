@@ -1,18 +1,11 @@
-package com.example.android2dtest.scenes.TestScenes;
-
-import static com.example.android2dtest.gameLogic.MyDebug.log;
+package com.example.android2dtest.scenes.exampleScenes;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.view.SurfaceHolder;
-
-import androidx.annotation.NonNull;
 
 import com.example.android2dtest.R;
-import com.example.android2dtest.gameLogic.ContentManager;
 import com.example.android2dtest.gameLogic.extraComponents.touch.ClickableComponent;
-import com.example.android2dtest.gameLogic.extraComponents.touch.DraggableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.components.Sprite;
 import com.example.android2dtest.gameLogic.myECS.components.SpriteRenderer;
@@ -46,7 +39,7 @@ public class TicTacToe extends GameScene {
         turnText.paint.setTextSize(200);
         GameEntity turnEntity = new GameEntity("turn");
         turnEntity.addComponent(turnText);
-        turnEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y + 750);
+        turnEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y + 780);
         addEntity(turnEntity);
 
         for (int y = 0; y < 3; y++) {

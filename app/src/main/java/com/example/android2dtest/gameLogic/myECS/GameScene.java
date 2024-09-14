@@ -29,6 +29,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     public ContentManager contentManager;
     private static final Point screenCenter = new Point();
     private static final Point screenEnd = new Point();
+    public boolean debugRenderPhysics = false;
 
     public Bitmap getBackgroundImage() {
         return backgroundImage;
@@ -55,6 +56,10 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     }
     public void removeTouchable(TouchBase touchable){
         removeTouchablesAfterUpdate.add(touchable);
+    }
+
+    public static Point getScreenEnd() {
+        return new Point(screenEnd.x,screenEnd.y);
     }
 
     public static Point getSurfaceCenter() {
@@ -124,7 +129,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
             entity.render(GameLoop.DELTA_TIME, canvas);
 
         //draw physics debug
-        PhysicsSystem.debugRenderPhysics(canvas);
+        if(debugRenderPhysics)
+            PhysicsSystem.debugRenderPhysics(canvas);
     }
 
     public void update(float delta){

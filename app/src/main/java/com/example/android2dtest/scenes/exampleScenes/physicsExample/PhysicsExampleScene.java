@@ -1,4 +1,4 @@
-package com.example.android2dtest.scenes.TestScenes.physicsExample;
+package com.example.android2dtest.scenes.exampleScenes.physicsExample;
 
 import android.content.Context;
 
