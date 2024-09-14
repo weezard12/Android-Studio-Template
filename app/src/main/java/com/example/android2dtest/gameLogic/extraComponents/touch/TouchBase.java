@@ -1,5 +1,7 @@
 package com.example.android2dtest.gameLogic.extraComponents.touch;
 
+import static com.example.android2dtest.gameLogic.MyDebug.log;
+
 import android.view.MotionEvent;
 
 import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
@@ -21,5 +23,12 @@ public abstract class TouchBase extends GameComponent {
     public void attachToEntity(GameEntity entity) {
         super.attachToEntity(entity);
         entity.scene.addTouchable(this);
+    }
+
+    @Override
+    public void detachFromEntity(GameEntity entity) {
+        super.detachFromEntity(entity);
+        entity.scene.removeTouchable(this);
+        log("removed");
     }
 }

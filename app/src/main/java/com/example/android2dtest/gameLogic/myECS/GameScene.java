@@ -5,11 +5,8 @@ import static com.example.android2dtest.gameLogic.MyDebug.log;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,7 +18,6 @@ import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.extraComponents.touch.TouchBase;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
-import com.example.android2dtest.gameLogic.extraComponents.touch.DraggableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +25,7 @@ import java.util.List;
 public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     private List<GameEntity> entities;
     private final List<TouchBase> touchables;
+    private final List<TouchBase> removeTouchablesAfterUpdate;
     public ContentManager contentManager;
     private static final Point screenCenter = new Point();
     private static final Point screenEnd = new Point();
@@ -57,7 +54,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         touchables.add(touchable);
     }
     public void removeTouchable(TouchBase touchable){
-        touchables.remove(touchable);
+        removeTouchablesAfterUpdate.add(touchable);
     }
 
     public static Point getSurfaceCenter() {
@@ -73,6 +70,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         touchables = new ArrayList<>();
         contentManager = new ContentManager(context);
         getHolder().addCallback(this);
+        removeTouchablesAfterUpdate = new ArrayList<>();
     }
 
     //this method will be called from the game loop.
@@ -86,6 +84,12 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         //updates entities that needs a touch event
         for (TouchBase touchable : touchables)
             touchable.onTouchEvent(event);
+
+        // components can be removed after all touchables are updated.
+        for (int i = 0; i < removeTouchablesAfterUpdate.size(); i++) {
+            touchables.remove(removeTouchablesAfterUpdate.get(i));
+            removeTouchablesAfterUpdate.remove(0);
+        }
 
         // Check if the event is a click
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

@@ -23,59 +23,116 @@ import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;
 public class TicTacToe extends GameScene {
     public boolean xTurn = true;
     Tile[][] tiles = new Tile[3][3];
+    private TextRenderer turnText;
 
-    /**
-     * WARNING when inheriting the class do not use the constructor scene init logic!
-     * override the start method so you cant get null reference when creating entities at the scene start.
-     *
-     * @param context
-     */
     public TicTacToe(Context context) {
         super(context);
     }
 
     @Override
     public void start() {
-
         setBackgroundColor(Color.BLUE);
 
         GameEntity board = new GameEntity("board");
         addEntity(board);
         board.addComponent(new SpriteRenderer(new Sprite(contentManager.loadTextureFromDrawable(R.drawable.tic_tac_toe))));
-        board.addComponent(new BoxCollider(200,200));
+        board.addComponent(new BoxCollider(200, 200));
         board.addComponent(new DraggableComponent(board.getComponent(BoxCollider.class)));
         board.addComponent(new TextRenderer("Tic Tac Toe"));
         board.setPosition(getSurfaceCenter());
 
+        turnText = new TextRenderer("X's Turn");
+        turnText.paint.setTextSize(100);
+        GameEntity turnEntity = new GameEntity("turn");
+        turnEntity.addComponent(turnText);
+        turnEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y + 500);
+        addEntity(turnEntity);
+
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                tiles[y][x] = new Tile("tile",new Point(x,y));
+                tiles[y][x] = new Tile("tile", new Point(x, y));
                 addEntity(tiles[y][x]);
             }
         }
     }
 
+    private void checkWin() {
+        String winner = getWinner();
+        if (winner != null) {
+            turnText.setDrawText(winner + " Wins!");
+            disableTiles();
+        } else if (isBoardFull()) {
+            turnText.setDrawText("It's a Draw!");
+        } else {
+            turnText.setDrawText(xTurn ? "X's Turn" : "O's Turn");
+        }
+    }
 
-    public class Tile extends GameEntity{
+    private String getWinner() {
+        // Check rows
+        for (int i = 0; i < 3; i++) {
+            if (tiles[i][0].type != null && tiles[i][0].type.equals(tiles[i][1].type) && tiles[i][0].type.equals(tiles[i][2].type)) {
+                return tiles[i][0].type;
+            }
+        }
+
+        // Check columns
+        for (int i = 0; i < 3; i++) {
+            if (tiles[0][i].type != null && tiles[0][i].type.equals(tiles[1][i].type) && tiles[0][i].type.equals(tiles[2][i].type)) {
+                return tiles[0][i].type;
+            }
+        }
+
+        // Check diagonals
+        if (tiles[0][0].type != null && tiles[0][0].type.equals(tiles[1][1].type) && tiles[0][0].type.equals(tiles[2][2].type)) {
+            return tiles[0][0].type;
+        }
+        if (tiles[0][2].type != null && tiles[0][2].type.equals(tiles[1][1].type) && tiles[0][2].type.equals(tiles[2][0].type)) {
+            return tiles[0][2].type;
+        }
+
+        return null;
+    }
+
+    private boolean isBoardFull() {
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                if (tiles[y][x].type == null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void disableTiles() {
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                tiles[y][x].removeComponents(ClickableComponent.class);
+            }
+        }
+    }
+
+    public class Tile extends GameEntity {
         Point id;
         String type;
 
         TextRenderer renderer;
         BoxCollider collider;
         ClickableComponent clickableComponent;
+
         public Tile(String name, Point id) {
             super(name);
             this.id = id;
 
-            collider = new BoxCollider(300,300);
+            collider = new BoxCollider(300, 300);
             addComponent(collider);
 
-            //position
-            setPosition(GameScene.getSurfaceCenter().x + ((id.x -1)*350),GameScene.getSurfaceCenter().y + ((id.y -1)*360));
+            setPosition(GameScene.getSurfaceCenter().x + ((id.x - 1) * 350), GameScene.getSurfaceCenter().y + ((id.y - 1) * 360));
 
             renderer = new TextRenderer("");
             renderer.paint.setTextSize(200);
-            renderer.setOffset(0,60);
+            renderer.setOffset(0, 60);
             addComponent(renderer);
         }
 
@@ -83,23 +140,24 @@ public class TicTacToe extends GameScene {
         public void attachToScene(GameScene scene) {
             super.attachToScene(scene);
             clickableComponent = new ClickableComponent(collider);
-            clickableComponent.setOnClickListener(new ClickableComponent.OnClickListener() {
-                @Override
-                public void onClick(float x, float y) {
-                    if(!renderer.getDrawText().equals(""))
-                        return;
-
-                    TicTacToe gameScene = (TicTacToe) scene;
-                    if(gameScene.xTurn)
-                        renderer.setDrawText("X");
-                    else
-                        renderer.setDrawText("O");
-
-                    gameScene.xTurn = !gameScene.xTurn;
+            clickableComponent.setOnClickListener((x, y) -> {
+                if (!renderer.getDrawText().equals("")) {
+                    return;
                 }
+
+                TicTacToe gameScene = (TicTacToe) scene;
+                if (gameScene.xTurn) {
+                    renderer.setDrawText("X");
+                    type = "X";
+                } else {
+                    renderer.setDrawText("O");
+                    type = "O";
+                }
+
+                gameScene.xTurn = !gameScene.xTurn;
+                gameScene.checkWin();
             });
             addComponent(clickableComponent);
         }
     }
 }
-

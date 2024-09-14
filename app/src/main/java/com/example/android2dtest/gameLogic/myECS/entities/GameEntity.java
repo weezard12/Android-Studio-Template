@@ -9,6 +9,7 @@ import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
 import com.example.android2dtest.gameLogic.myECS.components.RenderableComponent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GameEntity {
@@ -73,5 +74,31 @@ public class GameEntity {
 
     public void attachToScene(GameScene scene){
         this.scene = scene;
+    }
+
+    public void removeComponent(GameComponent component){
+        component.detachFromEntity(this);
+
+        if(component instanceof RenderableComponent)
+            renderableComponents.remove(component);
+        else
+            components.remove(component);
+
+    }
+    public <T extends GameComponent> void removeComponents(Class<T> componentClass) {
+        // Create a unified list of all components
+        List<? extends GameComponent> targetList =
+                RenderableComponent.class.isAssignableFrom(componentClass) ? renderableComponents : components;
+
+        Iterator<? extends GameComponent> iterator = targetList.iterator();
+
+        while (iterator.hasNext()) {
+            GameComponent c = iterator.next();
+            if (componentClass.isInstance(c)) {
+                iterator.remove();
+                c.detachFromEntity(this); // Ensure component is detached
+                return; // Remove this line if you want to remove all matching components
+            }
+        }
     }
 }

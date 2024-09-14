@@ -11,4 +11,9 @@ public abstract class GameComponent {
     public void attachToEntity(GameEntity entity){
         this.entity = entity;
     }
+
+    public void detachFromEntity(GameEntity entity) {
+        this.entity = null;
+    }
+
 }
