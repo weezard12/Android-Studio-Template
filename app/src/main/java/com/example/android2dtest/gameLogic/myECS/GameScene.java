@@ -126,7 +126,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
 
         //render the entities
         for(GameEntity entity : entities)
-            entity.render(GameLoop.DELTA_TIME, canvas);
+            entity.render(GameLoop.deltaTime, canvas);
 
         //draw physics debug
         if(debugRenderPhysics)
