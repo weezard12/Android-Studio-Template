@@ -28,7 +28,6 @@ public class GameLoop extends Thread {
     }
     public GameLoop(GameScene scene){
         this.scene = scene;
-        scene.start();
     }
 
     @Override

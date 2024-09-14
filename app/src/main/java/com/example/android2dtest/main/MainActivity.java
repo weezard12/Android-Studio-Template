@@ -23,10 +23,9 @@ public class MainActivity extends AppCompatActivity {
         //GameScene scene = new FlappyBirdScene(getApplicationContext());
         //GameScene scene = new PhysicsExampleScene(getApplicationContext());
         GameScene scene = new TicTacToe(getApplicationContext());
-
+        setContentView(scene);
         GameLoop gameLoop = new GameLoop(scene);
         gameLoop.start();
-        setContentView(scene);
 
         //entities
         //scene.addEntity(new GameEntity("hello"));

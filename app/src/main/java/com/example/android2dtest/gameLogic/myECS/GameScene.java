@@ -1,8 +1,15 @@
 package com.example.android2dtest.gameLogic.myECS;
 
+import static com.example.android2dtest.gameLogic.MyDebug.log;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,10 +28,30 @@ import java.util.List;
 
 public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     private List<GameEntity> entities;
-
     private final List<TouchBase> touchables;
-
     public ContentManager contentManager;
+    private static final Point screenCenter = new Point();
+    private static final Point screenEnd = new Point();
+
+    public Bitmap getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(Bitmap backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    private Bitmap backgroundImage;
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    private int backgroundColor;
 
     public void addTouchable(TouchBase touchable){
         touchables.add(touchable);
@@ -33,11 +60,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         touchables.remove(touchable);
     }
 
-    public Point getViewCenter() {
-        int centerX = getWidth() / 2;
-        int centerY = getHeight() / 2;
-
-        return new Point(centerX, centerY);
+    public static Point getSurfaceCenter() {
+        return new Point(screenCenter.x,screenCenter.y);
     }
     /**
     * WARNING when inheriting the class do not use the constructor scene init logic!
@@ -48,12 +72,12 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         entities = new ArrayList<>();
         touchables = new ArrayList<>();
         contentManager = new ContentManager(context);
+        getHolder().addCallback(this);
     }
 
     //this method will be called from the game loop.
     //override it for scene start logic
     public void start(){
-
     }
 
     @Override
@@ -85,16 +109,18 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+
+        //render background
+        canvas.drawColor(backgroundColor);
+        if(backgroundImage != null)
+            canvas.drawBitmap(backgroundImage,null,canvas.getClipBounds(),new Paint());
+
+        //render the entities
         for(GameEntity entity : entities)
             entity.render(GameLoop.DELTA_TIME, canvas);
 
         //draw physics debug
         PhysicsSystem.debugRenderPhysics(canvas);
-
-/*        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        canvas.drawCircle(1,1,100,paint);
-        canvas.drawText("TEST",100,100, paint);*/
     }
 
     public void update(float delta){
@@ -112,8 +138,15 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+    @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-
+        log("Surface Created, Calling GameScene.start");
+        screenCenter.set(holder.getSurfaceFrame().centerX(),holder.getSurfaceFrame().centerY());
+        screenEnd.set(holder.getSurfaceFrame().right,holder.getSurfaceFrame().bottom);
+        start();
     }
 
     @Override
