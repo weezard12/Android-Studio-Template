@@ -1,6 +1,8 @@
 package com.example.android2dtest.gameLogic;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 
 import com.example.android2dtest.gameLogic.myECS.GameScene;
@@ -13,6 +15,7 @@ public class GameLoop extends Thread {
     private long lastFrameTime;
     private long timer;
     private int frames;
+    private int fps;
     public static float deltaTime = 0;
 
     public GameScene scene;
@@ -39,7 +42,8 @@ public class GameLoop extends Thread {
                 frames++;
 
                 if (System.currentTimeMillis() - timer >= 1000) {
-                    logFrameStats();
+                    //logFrameStats();
+                    fps = frames;
                     frames = 0;
                     timer += 1000;
                 }
@@ -64,6 +68,8 @@ public class GameLoop extends Thread {
                     synchronized (scene.getHolder()) {
                         scene.update(deltaTime);
                         scene.draw(canvas);
+
+                        debugRender(canvas);
                     }
                 }
             } finally {
@@ -85,4 +91,12 @@ public class GameLoop extends Thread {
     private void logFrameStats() {
         Log.i("debug", "FPS: " + frames);
     }
+
+    private void debugRender(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        paint.setTextSize(80); // Adjust text size as needed
+        canvas.drawText("FPS: " + fps, 100, 100, paint); // Draw FPS at top-left
+    }
+
 }

@@ -125,8 +125,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawBitmap(backgroundImage,null,canvas.getClipBounds(),new Paint());
 
         //render the entities
-        for(GameEntity entity : entities)
-            entity.render(GameLoop.deltaTime, canvas);
+        for (int i = 0; i < entities.size(); i++)
+            entities.get(i).render(GameLoop.deltaTime, canvas);
 
         //draw physics debug
         if(debugRenderPhysics)
@@ -146,6 +146,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         entity.attachToScene(this);
         entities.add(entity);
     }
+
+
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -169,3 +171,4 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 }
+
