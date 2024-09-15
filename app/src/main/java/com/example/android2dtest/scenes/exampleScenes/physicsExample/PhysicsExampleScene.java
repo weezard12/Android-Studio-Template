@@ -17,6 +17,9 @@ public class PhysicsExampleScene extends GameScene {
 
     @Override
     public void start() {
+
+        debugRenderPhysics = true;
+
         addEntity(ball);
         ball.setPosition(200,200);
         ball.addComponent(new CircleCollider(100));

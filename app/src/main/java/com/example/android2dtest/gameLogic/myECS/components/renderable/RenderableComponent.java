@@ -1,11 +1,13 @@
-package com.example.android2dtest.gameLogic.myECS.components;
+package com.example.android2dtest.gameLogic.myECS.components.renderable;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
-public class RenderableComponent extends GameComponent{
+import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
+
+public class RenderableComponent extends GameComponent {
     public PointF getOffset() {
         return offset;
     }
@@ -19,8 +21,17 @@ public class RenderableComponent extends GameComponent{
     }
 
     protected PointF offset = new PointF();
+
+    public Paint getPaint() {
+        return paint;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
     public Paint paint = new Paint();
-    RenderableComponent(){
+    public RenderableComponent(){
         paint.setColor(Color.WHITE);
     }
 

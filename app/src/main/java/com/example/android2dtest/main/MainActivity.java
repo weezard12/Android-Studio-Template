@@ -10,6 +10,7 @@ import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
 import com.example.android2dtest.scenes.exampleScenes.RenderingExample;
 import com.example.android2dtest.scenes.exampleScenes.TicTacToe;
 import com.example.android2dtest.scenes.exampleScenes.flappyBird.FlappyBirdScene;
+import com.example.android2dtest.scenes.exampleScenes.physicsExample.PhysicsExampleScene;
 
 public class MainActivity extends AppCompatActivity {
 
