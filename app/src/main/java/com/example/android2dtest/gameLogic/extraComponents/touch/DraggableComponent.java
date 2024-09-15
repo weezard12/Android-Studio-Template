@@ -1,6 +1,5 @@
 package com.example.android2dtest.gameLogic.extraComponents.touch;
 
-import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
 import com.example.android2dtest.gameLogic.myPhysics.Collider;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Shape;
 import android.view.MotionEvent;
@@ -27,8 +26,6 @@ public class DraggableComponent extends TouchBase {
             entity.setPosition(entity.getX() + getTouchDeltaX(),entity.getY() + getTouchDeltaY());
 
             // Update the last touch coordinates
-            lastTouchX = getCurrentTouchX();
-            lastTouchY = getCurrentTouchY();
         }
     }
 

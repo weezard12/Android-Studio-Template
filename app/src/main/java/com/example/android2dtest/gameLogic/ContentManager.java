@@ -14,8 +14,8 @@ import java.util.Map;
 
 public final class ContentManager {
 
-    private Context context;
-    private Map<String, Bitmap> textureCache;
+    private final Context context;
+    private final Map<String, Bitmap> textureCache;
 
     // Constructor to initialize ContentManager with application context
     public ContentManager(Context context) {

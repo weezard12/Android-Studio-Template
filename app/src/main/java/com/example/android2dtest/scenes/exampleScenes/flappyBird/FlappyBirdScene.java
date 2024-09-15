@@ -59,10 +59,7 @@ public class FlappyBirdScene extends GameScene {
 
 
     private boolean checkForLoose(){
-        if(bird.getY() < 0 || bird.getY() > getScreenEnd().y){
-            return true;
-        }
-        return false;
+        return bird.getY() < 0 || bird.getY() > getScreenEnd().y;
     }
 
     @Override

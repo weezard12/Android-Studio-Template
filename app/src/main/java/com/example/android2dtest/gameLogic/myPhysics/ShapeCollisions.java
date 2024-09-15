@@ -2,7 +2,6 @@ package com.example.android2dtest.gameLogic.myPhysics;
 
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Circle;
-import android.graphics.PointF;
 
 public final class ShapeCollisions {
 
