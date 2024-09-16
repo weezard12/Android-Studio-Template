@@ -5,6 +5,7 @@ import static com.example.android2dtest.gameLogic.MyDebug.log;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.view.MotionEvent;
@@ -147,7 +148,21 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         entities.add(entity);
     }
 
+    public GameEntity getEntity(String name){
+        for (GameEntity entity : entities)
+            if(entity.getName().equals(name))
+                return entity;
 
+        return null;
+    }
+
+    private void debugRender(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        paint.setTextSize(80); // Adjust text size as needed
+        canvas.drawText("FPS: " + GameLoop.fps, 50, 100, paint); // Draw FPS at top-left
+        canvas.drawText("Entity Count: " + entities.size(), 50, 200, paint); // Draw FPS at top-left
+    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

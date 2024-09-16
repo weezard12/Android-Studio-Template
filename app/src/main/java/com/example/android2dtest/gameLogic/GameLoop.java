@@ -15,7 +15,7 @@ public class GameLoop extends Thread {
     private long lastFrameTime;
     private long timer;
     private int frames;
-    private int fps;
+    public static int fps;
     public static float deltaTime = 0;
 
     public GameScene scene;

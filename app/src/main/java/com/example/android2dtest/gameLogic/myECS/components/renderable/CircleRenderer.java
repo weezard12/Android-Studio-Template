@@ -1,18 +1,16 @@
-package com.example.android2dtest.gameLogic.myECS.components;
+package com.example.android2dtest.gameLogic.myECS.components.renderable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.example.android2dtest.gameLogic.myECS.components.renderable.RenderableComponent;
-
-public class CircleRendererComponent extends RenderableComponent {
+public class CircleRenderer extends RenderableComponent {
 
     public int radius;
 
-    public CircleRendererComponent(int radius){
+    public CircleRenderer(int radius){
         this.radius = radius;
     }
-    public CircleRendererComponent(int radius, Paint color){
+    public CircleRenderer(int radius, Paint color){
         this.radius = radius;
         this.paint = color;
     }
