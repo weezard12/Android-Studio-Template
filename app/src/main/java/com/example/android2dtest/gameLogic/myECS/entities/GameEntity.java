@@ -13,7 +13,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GameEntity {
-    String name;
+
+    public String getName() {
+        return name;
+    }
+    private final String name;
     public GameScene scene;
     Transform transform;
 
