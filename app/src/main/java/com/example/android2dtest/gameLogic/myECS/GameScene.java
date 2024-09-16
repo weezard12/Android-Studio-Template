@@ -132,6 +132,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         //draw physics debug
         if(debugRenderPhysics)
             PhysicsSystem.debugRenderPhysics(canvas);
+
+        debugRender(canvas);
     }
 
     public void update(float delta){
