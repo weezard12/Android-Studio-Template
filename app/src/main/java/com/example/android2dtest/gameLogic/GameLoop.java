@@ -67,7 +67,6 @@ public class GameLoop extends Thread {
                         scene.update(deltaTime);
                         scene.draw(canvas);
 
-                        debugRender(canvas);
                     }
                 }
             } finally {
@@ -90,11 +89,5 @@ public class GameLoop extends Thread {
         Log.i("debug", "FPS: " + frames);
     }
 
-    private void debugRender(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setTextSize(80); // Adjust text size as needed
-        canvas.drawText("FPS: " + fps, 100, 100, paint); // Draw FPS at top-left
-    }
 
 }

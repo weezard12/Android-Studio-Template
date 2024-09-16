@@ -28,6 +28,7 @@ public class Sprite {
     private PointF scale;
     public Sprite(Bitmap texture){
         this.texture = texture;
+        this.scale = new PointF(1,1);
     }
     public Sprite(Bitmap texture, float scaleX, float scaleY){
         this.texture = texture;
