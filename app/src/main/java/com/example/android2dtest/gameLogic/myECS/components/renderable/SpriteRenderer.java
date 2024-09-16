@@ -1,46 +1,54 @@
-package com.example.android2dtest.gameLogic.myECS.components;
-
-import static com.example.android2dtest.gameLogic.MyDebug.log;
+package com.example.android2dtest.gameLogic.myECS.components.renderable;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
-
 public class SpriteRenderer extends RenderableComponent {
 
-    private Sprite sprite;
-    private Paint paint;
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    private final Sprite sprite;
+    private final Paint paint;
+    private final RectF destinationRect = new RectF();
 
     public SpriteRenderer(Sprite sprite) {
         this.sprite = sprite;
         this.paint = new Paint();
         paint.setColor(Color.WHITE);
+
+        paint.setAntiAlias(false); // Ensure no anti-aliasing for sharp pixels
+        paint.setFilterBitmap(false); // Disable bilinear filtering for sharper images
+        paint.setDither(false); // Disable dithering for sharp pixel edges
+
+    }
+    public SpriteRenderer(Bitmap texture) {
+        this.sprite = new Sprite(texture);
+        this.paint = new Paint();
+        paint.setColor(Color.WHITE);
+
+        paint.setAntiAlias(false); // Ensure no anti-aliasing for sharp pixels
+        paint.setFilterBitmap(false); // Disable bilinear filtering for sharper images
+        paint.setDither(false); // Disable dithering for sharp pixel edges
     }
 
     @Override
     public void render(float delta, Canvas canvas) {
         super.render(delta, canvas);
 
-        if (sprite == null || sprite.texture == null) {
-            log("Sprite renderer error: sprite or texture are null");
-            return;  // No sprite or texture to render
-        }
-
-        // Retrieve the entity's transform (position)
         float entityX = entity.getTransform().position.x;
         float entityY = entity.getTransform().position.y;
+        float entityAngle = entity.getTransform().rotation;
 
-        // Get the bitmap to render
         Bitmap texture = sprite.texture;
 
         // Handle scaling: if sprite has scale set, apply it, otherwise default to 1.0
-        float scaleX = (sprite.scale != null) ? sprite.scale.x : 1.0f;
-        float scaleY = (sprite.scale != null) ? sprite.scale.y : 1.0f;
+        float scaleX = sprite.getScale().x;
+        float scaleY = sprite.getScale().y;
 
         // Calculate the source and destination rectangles
         RectF destinationRect = new RectF(

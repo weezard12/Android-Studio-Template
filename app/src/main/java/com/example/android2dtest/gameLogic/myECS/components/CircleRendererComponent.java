@@ -1,10 +1,9 @@
 package com.example.android2dtest.gameLogic.myECS.components;
 
-import static com.example.android2dtest.gameLogic.MyDebug.log;
-
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+
+import com.example.android2dtest.gameLogic.myECS.components.renderable.RenderableComponent;
 
 public class CircleRendererComponent extends RenderableComponent {
 

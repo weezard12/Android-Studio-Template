@@ -2,9 +2,8 @@ package com.example.android2dtest.scenes.exampleScenes.flappyBird;
 
 import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
-import com.example.android2dtest.gameLogic.myECS.components.CircleRendererComponent;
-import com.example.android2dtest.gameLogic.myECS.components.Sprite;
-import com.example.android2dtest.gameLogic.myECS.components.SpriteRenderer;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteRenderer;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.CircleCollider;
 

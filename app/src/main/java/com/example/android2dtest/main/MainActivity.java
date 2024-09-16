@@ -8,8 +8,6 @@ import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
 import com.example.android2dtest.scenes.exampleScenes.RenderingExample;
-import com.example.android2dtest.scenes.exampleScenes.TicTacToe;
-import com.example.android2dtest.scenes.exampleScenes.flappyBird.FlappyBirdScene;
 
 public class MainActivity extends AppCompatActivity {
 

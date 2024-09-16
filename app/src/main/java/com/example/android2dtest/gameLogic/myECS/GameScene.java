@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
-    private List<GameEntity> entities;
+    private final List<GameEntity> entities;
     private final List<TouchBase> touchables;
     private final List<TouchBase> removeTouchablesAfterUpdate;
     public ContentManager contentManager;

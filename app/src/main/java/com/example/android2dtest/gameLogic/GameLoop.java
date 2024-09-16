@@ -38,19 +38,17 @@ public class GameLoop extends Thread {
 
             if ((currentTime - lastFrameTime) >= FRAME_INTERVAL_NS) {
                 updateAndRender();
-                lastFrameTime += FRAME_INTERVAL_NS;
+                lastFrameTime = currentTime; // Assign current time here
                 frames++;
 
                 if (System.currentTimeMillis() - timer >= 1000) {
-                    //logFrameStats();
                     fps = frames;
                     frames = 0;
                     timer += 1000;
                 }
             } else {
-                // Sleep/yield if running ahead of target FPS
                 try {
-                    Thread.sleep(1); // Adjust sleep duration as needed
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
