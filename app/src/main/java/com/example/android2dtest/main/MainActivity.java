@@ -7,8 +7,7 @@ import android.os.Bundle;
 import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
-import com.example.android2dtest.scenes.exampleScenes.MemoryGame;
-import com.example.android2dtest.scenes.exampleScenes.RenderingExample;
+import com.example.android2dtest.scenes.exampleScenes.MemoryGame1Player;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         //GameScene scene = new PhysicsExampleScene(getApplicationContext());
         //GameScene scene = new TicTacToe(getApplicationContext());
         //GameScene scene = new RenderingExample(getApplicationContext());
-        GameScene scene = new MemoryGame(getApplicationContext());
+        GameScene scene = new MemoryGame1Player(getApplicationContext());
         setContentView(scene);
         GameLoop gameLoop = new GameLoop(scene);
         gameLoop.start();

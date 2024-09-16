@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MemoryGame extends GameScene {
+public class MemoryGame1Player extends GameScene {
 
     public static int scale = 250;
     private Tile selectedTile;
@@ -24,9 +24,10 @@ public class MemoryGame extends GameScene {
     private int pairsFound = 0;
     private TextRenderer scoreText;
     private TextRenderer turnText;
+    private boolean isPlayer1Turn = true;
     private Handler handler = new Handler();
 
-    public MemoryGame(Context context) {
+    public MemoryGame1Player(Context context) {
         super(context);
     }
 
@@ -118,7 +119,6 @@ public class MemoryGame extends GameScene {
                     selectedTile = this;
                 } else {
                     turns++;
-                    turnText.setDrawText("Turns: " + turns);
                     if (selectedTile.number == number) {
                         score += 10; // Increment score for a match
                         scoreText.setDrawText("Score: " + score);
@@ -148,7 +148,7 @@ public class MemoryGame extends GameScene {
             winText.paint.setTextSize(200);
             GameEntity winEntity = new GameEntity("win");
             winEntity.addComponent(winText);
-            winEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y+200);
+            winEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y + 200);
             addEntity(winEntity);
         }
     }
