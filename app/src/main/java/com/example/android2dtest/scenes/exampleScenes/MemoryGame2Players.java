@@ -4,20 +4,25 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Handler;
 
+import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.extraComponents.touch.ClickableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.GridPoints;
 import com.example.android2dtest.gameLogic.myECS.components.TextRenderer;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteRenderer;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class MemoryGame2Players extends GameScene {
 
-    public static int scale = 250;
+    public static int scale = 0;
+    public static boolean delay = false;
     private Tile selectedTile;
     private int player1Score = 0;
     private int player2Score = 0;
@@ -38,6 +43,8 @@ public class MemoryGame2Players extends GameScene {
         super.start();
         debugRenderPhysics = true;
 
+        scale = getScreenEnd().x/5;
+
         int[][] mat = new int[4][5];
         fillMat(mat);
 
@@ -45,7 +52,7 @@ public class MemoryGame2Players extends GameScene {
         for (int y = 0; y < points.getGrid().length; y++) {
             for (int x = 0; x < points.getGrid()[0].length; x++) {
                 Tile entity = new Tile(mat[y][x], new Point(x, y));
-                entity.setPosition(points.getGrid()[y][x].x + (scale / 2), points.getGrid()[y][x].y + 400);
+                entity.setPosition(points.getGrid()[y][x].x + (scale / 2), points.getGrid()[y][x].y + 500);
                 addEntity(entity);
             }
         }
@@ -75,30 +82,25 @@ public class MemoryGame2Players extends GameScene {
         addEntity(turnEntity);
     }
 
-    public static void fillMat(int[][] mat) {
-        int size = mat.length * mat[0].length;
-        if (size % 2 != 0) {
-            throw new IllegalArgumentException("Matrix size must be even for a memory game.");
+    public static void fillMat(int[][] mat){
+        ArrayList<Integer> nums = new ArrayList<>();
+        Random rnd = new Random();
+        int x;
+        for (int i = 0; i <= 9; i++) {
+            nums.add(i);
+            nums.add(i);
         }
-
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i < size / 2; i++) {
-            numbers.add(i);
-            numbers.add(i); // Add each number twice for pairs
-        }
-
-        Collections.shuffle(numbers); // Shuffle the numbers randomly
-
-        int index = 0;
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[i].length; j++) {
-                mat[i][j] = numbers.get(index++);
+                x = rnd.nextInt(nums.size());
+                mat[i][j] = nums.get(x);
+                nums.remove(x);
             }
         }
     }
 
     class Tile extends GameEntity {
-
+        SpriteRenderer bkgRenderer;
         TextRenderer renderer;
         ClickableComponent clickableComponent;
         int number;
@@ -112,14 +114,25 @@ public class MemoryGame2Players extends GameScene {
         @Override
         public void attachToScene(GameScene scene) {
             super.attachToScene(scene);
+
+            //background renderer
+            bkgRenderer = new SpriteRenderer(new Sprite(contentManager.loadTextureFromDrawable(R.drawable.stone_tile)));
+            bkgRenderer.getSprite().setScale((float) 188/scale*2,(float)188/scale*2);
+            addComponent(bkgRenderer);
+
+            //number renderer
             renderer = new TextRenderer("?");
             renderer.setOffset(0, scale / 8);
             renderer.paint.setTextSize(scale / 1.5f);
             addComponent(renderer);
 
+
             addComponent(new BoxCollider(scale, scale));
             clickableComponent = new ClickableComponent(getComponent(BoxCollider.class));
             clickableComponent.setOnClickListener((x, y) -> {
+                if(delay)
+                    return;
+
                 if (isRevealed || this == selectedTile) return;
 
                 renderer.setDrawText("" + number);
@@ -143,12 +156,14 @@ public class MemoryGame2Players extends GameScene {
                     } else {
                         isPlayer1Turn = !isPlayer1Turn; // Switch turns
                         turnText.setDrawText("Player " + (isPlayer1Turn ? "1" : "2") + "'s Turn");
+                        delay = true;
                         handler.postDelayed(() -> {
                             selectedTile.renderer.setDrawText("?");
                             selectedTile.isRevealed = false;
                             renderer.setDrawText("?");
                             isRevealed = false;
                             selectedTile = null;
+                            delay = false;
                         }, 1000);
                     }
                 }
@@ -163,12 +178,8 @@ public class MemoryGame2Players extends GameScene {
             String winner = (player1Score > player2Score) ? "Player 1 Wins!" :
                     (player2Score > player1Score) ? "Player 2 Wins!" : "It's a Draw!";
 
-            TextRenderer winText = new TextRenderer(winner);
-            winText.paint.setTextSize(200);
-            GameEntity winEntity = new GameEntity("win");
-            winEntity.addComponent(winText);
-            winEntity.setPosition(getSurfaceCenter().x, getSurfaceCenter().y + 200);
-            addEntity(winEntity);
+            turnText.setDrawText(winner);
+
         }
     }
 }

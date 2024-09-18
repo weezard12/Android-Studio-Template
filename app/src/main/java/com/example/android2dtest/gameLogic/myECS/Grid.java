@@ -11,5 +11,4 @@ public abstract class Grid<T> {
     public abstract void updateGrid(int rowDistance, int columnDistance);
     public T[][] getGrid(){return grid;}
 
-
 }

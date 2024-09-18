@@ -16,6 +16,7 @@ public class GridPoints extends Grid<Point>{
 
     @Override
     public void updateGrid(int rowDistance, int columnDistance) {
-
+        // TODO add update grid logic.
     }
+
 }
