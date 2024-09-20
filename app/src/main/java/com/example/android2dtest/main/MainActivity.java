@@ -2,8 +2,10 @@ package com.example.android2dtest.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
@@ -23,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         //GameScene scene = new TicTacToe(getApplicationContext());
         //GameScene scene = new RenderingExample(getApplicationContext());
         //GameScene scene = new MemoryGame1Player(getApplicationContext());
-        GameScene scene = new MemoryGame2Players(getApplicationContext());
-        setContentView(scene);
-        GameLoop gameLoop = new GameLoop(scene);
-        gameLoop.start();
+        //GameScene scene = new MemoryGame2Players(getApplicationContext());
+        //setContentView(scene);
+        //GameLoop gameLoop = new GameLoop(scene);
+        //gameLoop.start();
 
-        //entities
-        //scene.addEntity(new GameEntity("hello"));
+        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 }
