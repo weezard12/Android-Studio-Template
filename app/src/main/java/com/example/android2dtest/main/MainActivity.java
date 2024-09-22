@@ -9,6 +9,7 @@ import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
+import com.example.android2dtest.scenes.exampleScenes.BattleShipWar;
 import com.example.android2dtest.scenes.exampleScenes.MemoryGame1Player;
 import com.example.android2dtest.scenes.exampleScenes.MemoryGame2Players;
 import com.example.android2dtest.scenes.exampleScenes.TicTacToe;
@@ -26,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
         //GameScene scene = new RenderingExample(getApplicationContext());
         //GameScene scene = new MemoryGame1Player(getApplicationContext());
         //GameScene scene = new MemoryGame2Players(getApplicationContext());
-        //setContentView(scene);
-        //GameLoop gameLoop = new GameLoop(scene);
-        //gameLoop.start();
+        GameScene scene = new BattleShipWar(getApplicationContext());
 
-        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-        startActivity(intent);
+        setContentView(scene);
+        GameLoop gameLoop = new GameLoop(scene);
+        gameLoop.start();
+
+        //Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+        //startActivity(intent);
     }
 }

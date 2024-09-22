@@ -1,5 +1,7 @@
 package com.example.android2dtest.main;
 
+import static com.example.android2dtest.gameLogic.MyDebug.log;
+
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -24,5 +26,10 @@ public class MenuActivity extends AppCompatActivity {
             return insets;
         });
         Button ticTacToeBtn = findViewById(R.id.ticTacToeButton);
+        ticTacToeBtn.setOnClickListener(v -> {
+            //Intent intent = new Intent(MenuActivity.this, TicTacToe.class);
+            //startActivity(intent);
+            log("aaaaaaaa");
+        });
     }
 }

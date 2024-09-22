@@ -2,6 +2,7 @@ package com.example.android2dtest.gameLogic.myECS.entities;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.Transform;
@@ -72,6 +73,10 @@ public class GameEntity {
         transform.position.y = y;
     }
     public void setPosition(Point position){
+        transform.position.x = position.x;
+        transform.position.y = position.y;
+    }
+    public void setPosition(PointF position){
         transform.position.x = position.x;
         transform.position.y = position.y;
     }

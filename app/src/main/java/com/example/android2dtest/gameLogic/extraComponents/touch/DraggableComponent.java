@@ -7,7 +7,9 @@ import android.view.MotionEvent;
 public class DraggableComponent extends TouchBase {
     private boolean isDragging = false;    // To check if we are currently dragging
     private float lastTouchX;              // To track the last X touch position
-    private float lastTouchY;              // To track the last Y touch position
+    private float lastTouchY;
+
+    private OnStopDraggingListener onStopDraggingListener;// To track the last Y touch position
 
     public DraggableComponent(Collider collider) {
         super(collider);
@@ -63,6 +65,10 @@ public class DraggableComponent extends TouchBase {
             case MotionEvent.ACTION_CANCEL:
                 // Stop dragging when touch is released or cancelled
                 isDragging = false;
+
+                if (onStopDraggingListener != null) {
+                    onStopDraggingListener.onStopDragging();
+                }
                 break;
         }
     }
@@ -88,5 +94,13 @@ public class DraggableComponent extends TouchBase {
     private float getTouchDeltaY() {
         // Calculate how much the Y position has changed
         return getCurrentTouchY() - lastTouchY;
+    }
+
+    public void setOnStopDraggingListener(OnStopDraggingListener listener) {
+        this.onStopDraggingListener = listener;
+    }
+
+    public interface OnStopDraggingListener{
+        public void onStopDragging();
     }
 }

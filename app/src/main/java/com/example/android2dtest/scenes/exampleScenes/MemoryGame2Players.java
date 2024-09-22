@@ -41,7 +41,7 @@ public class MemoryGame2Players extends GameScene {
     @Override
     public void start() {
         super.start();
-        debugRenderPhysics = true;
+        //debugRenderPhysics = true;
 
         scale = getScreenEnd().x/5;
 
