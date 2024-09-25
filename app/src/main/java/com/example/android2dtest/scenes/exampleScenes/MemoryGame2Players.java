@@ -8,7 +8,7 @@ import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.myECS.components.touchable.ClickableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.GridPoints;
-import com.example.android2dtest.gameLogic.myECS.components.TextRenderer;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.TextRenderer;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteRenderer;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;

@@ -67,25 +67,16 @@ public class BattleShipWar extends GameScene {
         submarines.add(new Submarine(1,5,R.drawable.submarine1x5));
         submarines.add(new Submarine(2,5,R.drawable.submarine2x5));
         submarines.add(new Submarine(1,6,R.drawable.submarine1x6));
-        for (Submarine submarine : submarines) {
-            addEntity(submarine);
-            submarine.getTransform().scale = 0.5f;
+
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 2; x++) {
+                submarines.get(y + x).setOutsidePosition(submarinesPositions.getGrid()[y][x].x + points.getGrid()[9][9].x, submarinesPositions.getGrid()[y][x].y + 600);
+                addEntity(submarines.get(y + x));
+                submarines.get(y + x).moveOutsideTheTiles();
+            }
         }
-        //Submarine submarine1x3 = new Submarine(1,3,R.drawable.submarine1x3);
-        //addEntity(submarine1x3);
-        //submarine1x3.setPosition(points.getGrid()[9][9].x + scale*1.6f, 600);
 
-        //Submarine submarine1x4 = new Submarine(1,4,R.drawable.submarine1x4);
-        //addEntity(submarine1x4);
-        //submarine1x4.setPosition(points.getGrid()[9][9].x + scale*1.6f, 600);
 
-        //Submarine submarine1x5 = new Submarine(1,5,R.drawable.submarine1x5);
-        //addEntity(submarine1x5);
-        //submarine1x5.setPosition(points.getGrid()[9][9].x + scale*1.6f, 600);
-
-/*        Submarine submarine2x5 = new Submarine(2,5,R.drawable.submarine2x5);
-        addEntity(submarine2x5);
-        submarine2x5.setPosition(points.getGrid()[9][9].x + scale * 1.6f, 600);*/
     }
 
     @Override
@@ -103,6 +94,11 @@ public class BattleShipWar extends GameScene {
         // properties
         Point dimensions;
         boolean isRotated;
+
+        public void setOutsidePosition(float x, float y) {
+            this.outsidePosition = new PointF(x, y);
+        }
+        PointF outsidePosition = new PointF();
 
         private Point currentPoint;
 
@@ -131,7 +127,7 @@ public class BattleShipWar extends GameScene {
             if(dimensions.y % 2 == 0)
                 newOffset.y = scale * 0.5f;
 
-            if(dimensions.x % 2==0)
+            if(dimensions.x % 2 == 0)
                 newOffset.x = scale * 0.5f;
 
             renderer.setOffset(newOffset);
@@ -172,6 +168,27 @@ public class BattleShipWar extends GameScene {
             collider.getCollisionShape().offset = offset;
 
             setSubmarineTiles(true);
+        }
+
+        public void moveOutsideTheTiles(){
+
+            isRotated = false;
+            setRotation(0);
+
+            getTransform().scale = 0.5f;
+            ((Box)collider.getCollisionShape()).width = scale * dimensions.x;
+            ((Box)collider.getCollisionShape()).height = scale * dimensions.y;
+            PointF newOffset = new PointF(0,0);
+            if(dimensions.y % 2 == 0)
+                newOffset.y = scale * 0.5f;
+
+            if(dimensions.x % 2==0)
+                newOffset.x = scale * 0.5f;
+
+            renderer.setOffset(newOffset);
+            collider.getCollisionShape().offset = newOffset;
+
+            setPosition(outsidePosition.x, outsidePosition.y);
         }
 
         @Override

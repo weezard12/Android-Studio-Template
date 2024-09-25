@@ -30,8 +30,8 @@ public class RotatableSpriteRenderer extends SpriteRenderer {
         Bitmap texture = getSprite().texture;
 
         // Handle scaling: if sprite has scale set, apply it
-        float scaleX = getSprite().getScale().x + entity.getTransform().scale;
-        float scaleY = getSprite().getScale().y + entity.getTransform().scale;
+        float scaleX = getSprite().getScale().x + entity.getTransform().scale -1;
+        float scaleY = getSprite().getScale().y + entity.getTransform().scale -1;
 
         // Set up the source rectangle and destination rectangle for scaling
         RectF destinationRect = new RectF(

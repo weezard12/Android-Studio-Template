@@ -1,9 +1,7 @@
-package com.example.android2dtest.gameLogic.myECS.components;
+package com.example.android2dtest.gameLogic.myECS.components.renderable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
-import com.example.android2dtest.gameLogic.myECS.components.renderable.RenderableComponent;
 
 public class TextRenderer extends RenderableComponent {
     public String getDrawText() {
