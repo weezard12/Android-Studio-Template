@@ -23,8 +23,8 @@ public class RotatableSpriteRenderer extends SpriteRenderer {
         matrix.reset();
 
         // Get the entity's transform values
-        float entityX = entity.getTransform().position.x;
-        float entityY = entity.getTransform().position.y;
+        float entityX = entity.getTransform().position.x + offset.x;
+        float entityY = entity.getTransform().position.y + offset.y;
         float entityAngle = entity.getTransform().rotation;
 
         Bitmap texture = getSprite().texture;

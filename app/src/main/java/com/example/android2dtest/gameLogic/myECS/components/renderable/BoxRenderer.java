@@ -14,6 +14,6 @@ public class BoxRenderer extends RenderableComponent {
     @Override
     public void render(float delta, Canvas canvas) {
         super.render(delta, canvas);
-        canvas.drawRect(entity.getX(),entity.getY()+height,entity.getX()+width,entity.getY(),paint);
+        canvas.drawRect(entity.getX() - (width / 2),entity.getY() + (height/2),entity.getX()+(width/2),entity.getY()-(height/2),paint);
     }
 }

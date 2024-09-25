@@ -10,6 +10,7 @@ public class DraggableComponent extends TouchBase {
     private float lastTouchY;
 
     private OnStopDraggingListener onStopDraggingListener;// To track the last Y touch position
+    private ClickableComponent.OnClickListener onStartDraggingListener;// To track the last Y touch position
 
     public DraggableComponent(Collider collider) {
         super(collider);
@@ -43,6 +44,9 @@ public class DraggableComponent extends TouchBase {
                     isDragging = true;
                     lastTouchX = touchX;
                     lastTouchY = touchY;
+
+                    if(onStartDraggingListener!=null)
+                        onStartDraggingListener.onClick(touchX,touchY);
                 }
                 break;
 
@@ -99,7 +103,9 @@ public class DraggableComponent extends TouchBase {
     public void setOnStopDraggingListener(OnStopDraggingListener listener) {
         this.onStopDraggingListener = listener;
     }
-
+    public void setOnStartDraggingListener(ClickableComponent.OnClickListener listener) {
+        this.onStartDraggingListener = listener;
+    }
     public interface OnStopDraggingListener{
         public void onStopDragging();
     }

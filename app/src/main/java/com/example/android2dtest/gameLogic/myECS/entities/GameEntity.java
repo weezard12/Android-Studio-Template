@@ -36,12 +36,14 @@ public class GameEntity {
     }
     public void render(float delta, Canvas canvas){
         for (RenderableComponent component : renderableComponents){
-            component.render(delta,canvas);
+            if(component.getEnabled())
+                component.render(delta,canvas);
         }
     }
     public void update(float delta){
         for (GameComponent component : components){
-            component.update(delta);
+            if(component.getEnabled())
+                component.update(delta);
         }
     }
 
