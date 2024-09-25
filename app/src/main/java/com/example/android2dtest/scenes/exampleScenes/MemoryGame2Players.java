@@ -5,7 +5,7 @@ import android.graphics.Point;
 import android.os.Handler;
 
 import com.example.android2dtest.R;
-import com.example.android2dtest.gameLogic.extraComponents.touch.ClickableComponent;
+import com.example.android2dtest.gameLogic.myECS.components.touchable.ClickableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.GridPoints;
 import com.example.android2dtest.gameLogic.myECS.components.TextRenderer;
@@ -15,8 +15,6 @@ import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class MemoryGame2Players extends GameScene {

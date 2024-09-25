@@ -42,13 +42,12 @@ public class SpriteRenderer extends RenderableComponent {
 
         float entityX = entity.getTransform().position.x;
         float entityY = entity.getTransform().position.y;
-        float entityAngle = entity.getTransform().rotation;
 
         Bitmap texture = sprite.texture;
 
         // Handle scaling: if sprite has scale set, apply it, otherwise default to 1.0
-        float scaleX = sprite.getScale().x;
-        float scaleY = sprite.getScale().y;
+        float scaleX = sprite.getScale().x + entity.getTransform().scale;
+        float scaleY = sprite.getScale().y + entity.getTransform().scale;
 
         // Calculate the source and destination rectangles
         RectF destinationRect = new RectF(

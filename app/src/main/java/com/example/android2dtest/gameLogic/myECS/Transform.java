@@ -7,8 +7,10 @@ public class Transform {
     public float getX(){return position.x;}
     public float getY(){return position.y;}
     public float rotation;
+    public float scale;
     public Transform(){
         position = new PointF();
         rotation = 0;
+        scale = 1;
     }
 }

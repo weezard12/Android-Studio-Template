@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 
 import com.example.android2dtest.gameLogic.ContentManager;
 import com.example.android2dtest.gameLogic.GameLoop;
-import com.example.android2dtest.gameLogic.extraComponents.touch.TouchBase;
+import com.example.android2dtest.gameLogic.myECS.components.touchable.TouchBase;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
 

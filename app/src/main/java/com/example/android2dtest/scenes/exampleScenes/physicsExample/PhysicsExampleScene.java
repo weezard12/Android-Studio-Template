@@ -2,7 +2,7 @@ package com.example.android2dtest.scenes.exampleScenes.physicsExample;
 
 import android.content.Context;
 
-import com.example.android2dtest.gameLogic.extraComponents.touch.DraggableComponent;
+import com.example.android2dtest.gameLogic.myECS.components.touchable.DraggableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;

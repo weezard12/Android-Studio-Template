@@ -12,6 +12,7 @@ import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
 import com.example.android2dtest.scenes.exampleScenes.BattleShipWar;
 import com.example.android2dtest.scenes.exampleScenes.MemoryGame1Player;
 import com.example.android2dtest.scenes.exampleScenes.MemoryGame2Players;
+import com.example.android2dtest.scenes.exampleScenes.RenderingExample;
 import com.example.android2dtest.scenes.exampleScenes.TicTacToe;
 
 public class MainActivity extends AppCompatActivity {

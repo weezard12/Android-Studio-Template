@@ -1,4 +1,4 @@
-package com.example.android2dtest.gameLogic.extraComponents.touch;
+package com.example.android2dtest.gameLogic.myECS.components.touchable;
 
 import com.example.android2dtest.gameLogic.myPhysics.Collider;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Shape;

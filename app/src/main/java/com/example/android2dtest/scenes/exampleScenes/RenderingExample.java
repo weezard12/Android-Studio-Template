@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.GameLoop;
-import com.example.android2dtest.gameLogic.extraComponents.touch.DraggableComponent;
+import com.example.android2dtest.gameLogic.myECS.components.touchable.DraggableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.RotatableSpriteRenderer;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteRenderer;
@@ -51,7 +51,8 @@ public class RenderingExample extends GameScene {
     @Override
     public void update(float delta) {
         super.update(delta);
-        textureEntity.getTransform().rotation += 1* GameLoop.deltaTime;
+        textureEntity.getTransform().rotation += 1 * GameLoop.deltaTime;
+        textureEntity.getTransform().scale += 1 * GameLoop.deltaTime;
         //log("delta"+GameLoop.deltaTime);
     }
 }

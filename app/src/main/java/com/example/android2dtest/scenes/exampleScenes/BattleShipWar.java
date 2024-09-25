@@ -8,13 +8,12 @@ import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.android2dtest.R;
-import com.example.android2dtest.gameLogic.extraComponents.touch.ClickableComponent;
-import com.example.android2dtest.gameLogic.extraComponents.touch.DraggableComponent;
+import com.example.android2dtest.gameLogic.myECS.components.touchable.ClickableComponent;
+import com.example.android2dtest.gameLogic.myECS.components.touchable.DraggableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.GridPoints;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.BoxRenderer;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.RotatableSpriteRenderer;
-import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteRenderer;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
@@ -70,6 +69,7 @@ public class BattleShipWar extends GameScene {
         submarines.add(new Submarine(1,6,R.drawable.submarine1x6));
         for (Submarine submarine : submarines) {
             addEntity(submarine);
+            submarine.getTransform().scale = 0.5f;
         }
         //Submarine submarine1x3 = new Submarine(1,3,R.drawable.submarine1x3);
         //addEntity(submarine1x3);
@@ -83,9 +83,9 @@ public class BattleShipWar extends GameScene {
         //addEntity(submarine1x5);
         //submarine1x5.setPosition(points.getGrid()[9][9].x + scale*1.6f, 600);
 
-        Submarine submarine2x5 = new Submarine(2,5,R.drawable.submarine2x5);
+/*        Submarine submarine2x5 = new Submarine(2,5,R.drawable.submarine2x5);
         addEntity(submarine2x5);
-        submarine2x5.setPosition(points.getGrid()[9][9].x + scale * 1.6f, 600);
+        submarine2x5.setPosition(points.getGrid()[9][9].x + scale * 1.6f, 600);*/
     }
 
     @Override
