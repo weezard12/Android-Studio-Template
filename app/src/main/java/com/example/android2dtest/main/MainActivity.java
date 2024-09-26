@@ -13,6 +13,7 @@ import com.example.android2dtest.scenes.exampleScenes.BattleShipWar;
 import com.example.android2dtest.scenes.exampleScenes.MemoryGame1Player;
 import com.example.android2dtest.scenes.exampleScenes.MemoryGame2Players;
 import com.example.android2dtest.scenes.exampleScenes.RenderingExample;
+import com.example.android2dtest.scenes.exampleScenes.SwordThrow;
 import com.example.android2dtest.scenes.exampleScenes.TicTacToe;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //GameScene scene = new MemoryGame1Player(getApplicationContext());
         //GameScene scene = new MemoryGame2Players(getApplicationContext());
         GameScene scene = new BattleShipWar(getApplicationContext());
+        //GameScene scene = new SwordThrow(getApplicationContext());
 
         setContentView(scene);
         GameLoop gameLoop = new GameLoop(scene);

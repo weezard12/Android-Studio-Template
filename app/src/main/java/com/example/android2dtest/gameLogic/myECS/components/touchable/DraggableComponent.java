@@ -67,6 +67,8 @@ public class DraggableComponent extends TouchBase {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                if(!isDragging)
+                    return;
                 // Stop dragging when touch is released or cancelled
                 isDragging = false;
 

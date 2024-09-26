@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.gameLogic.myECS.Panel;
 import com.example.android2dtest.gameLogic.myECS.components.touchable.ClickableComponent;
 import com.example.android2dtest.gameLogic.myECS.components.touchable.DraggableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
@@ -29,6 +30,7 @@ public class BattleShipWar extends GameScene {
     public static Tile[][] tiles;
 
     List<Submarine> submarines = new ArrayList<>();
+    public static Panel submarinesPanel;
 
     /**
      * WARNING when inheriting the class do not use the constructor scene init logic!
@@ -68,21 +70,18 @@ public class BattleShipWar extends GameScene {
         submarines.add(new Submarine(2,5,R.drawable.submarine2x5));
         submarines.add(new Submarine(1,6,R.drawable.submarine1x6));
 
-        for (int y = 0; y < 3; y++) {
-            for (int x = 0; x < 2; x++) {
-                submarines.get(y + x).setOutsidePosition(submarinesPositions.getGrid()[y][x].x + points.getGrid()[9][9].x, submarinesPositions.getGrid()[y][x].y + 600);
-                addEntity(submarines.get(y + x));
-                submarines.get(y + x).moveOutsideTheTiles();
-            }
+        submarinesPanel = new Panel(points.getGrid()[9][9].x+ (scale*2),0);
+        for (Submarine submarine : submarines) {
+                //submarines.get(y + x).setOutsidePosition(submarinesPositions.getGrid()[y][x].x + points.getGrid()[9][9].x, submarinesPositions.getGrid()[y][x].y + 600);
+                addEntity(submarine);
+                submarine.moveOutsideTheTiles();
+                submarinesPanel.add(submarine);
+
         }
 
 
     }
 
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
-    }
     public class Submarine extends GameEntity implements DraggableComponent.OnStopDraggingListener, ClickableComponent.OnClickListener {
 
         RotatableSpriteRenderer renderer;
@@ -142,6 +141,7 @@ public class BattleShipWar extends GameScene {
             clickableComponent.setOnClickListener(new ClickableComponent.OnClickListener() {
                 @Override
                 public void onClick(float x, float y) {
+                    log("click");
                     updateCollider();
                     if(isRotated){
                         getTransform().rotation = 90;
@@ -157,6 +157,12 @@ public class BattleShipWar extends GameScene {
         private void updateCollider(){
             setSubmarineTiles(false);
             isRotated = !isRotated;
+            updateColliderScale();
+
+            setSubmarineTiles(true);
+        }
+        private void updateColliderScale(){
+            getTransform().scale = 1f;
             ((Box)collider.getCollisionShape()).width = (isRotated ? dimensions.y : dimensions.x) * scale;
             ((Box)collider.getCollisionShape()).height = (isRotated ? dimensions.x : dimensions.y) * scale;
 
@@ -166,8 +172,6 @@ public class BattleShipWar extends GameScene {
             );
             renderer.setOffset(offset);
             collider.getCollisionShape().offset = offset;
-
-            setSubmarineTiles(true);
         }
 
         public void moveOutsideTheTiles(){
@@ -176,8 +180,8 @@ public class BattleShipWar extends GameScene {
             setRotation(0);
 
             getTransform().scale = 0.5f;
-            ((Box)collider.getCollisionShape()).width = scale * dimensions.x;
-            ((Box)collider.getCollisionShape()).height = scale * dimensions.y;
+            ((Box)collider.getCollisionShape()).width = (float) (scale * dimensions.x) / 2;
+            ((Box)collider.getCollisionShape()).height = (float) (scale * dimensions.y) /2;
             PointF newOffset = new PointF(0,0);
             if(dimensions.y % 2 == 0)
                 newOffset.y = scale * 0.5f;
@@ -193,38 +197,53 @@ public class BattleShipWar extends GameScene {
 
         @Override
         public void onStopDragging() {
+
+            if(getTransform().position.x > tiles[9][9].getTransform().position.x+scale){
+                moveOutsideTheTiles();
+                submarinesPanel.add(this);
+                return;
+            }
+
+
             Point closestPoint = points.getClosestPointAsIdx(new Point((int)getY()-boardStart,(int)getX()));
             setPosition(tiles[closestPoint.y][closestPoint.x].getTransform().position);
 
             //tiles[closestPoint.y][closestPoint.x].setHasSubmarine(true);
-
             currentPoint = closestPoint;
+
             setSubmarineTiles(true);
 
             log(""+closestPoint);
         }
 
+        //on start dragging
         @Override
         public void onClick(float x, float y) {
+
+            updateColliderScale();
+
             if(currentPoint != null)
                 setSubmarineTiles(false);
+            else {
+                submarinesPanel.remove(this);
+            }
         }
 
-        private void setSubmarineTiles(boolean addSubmarine) {
+        private boolean setSubmarineTiles(boolean addSubmarine) {
             int xStart = -(isRotated ? dimensions.y : dimensions.x) / 2;
             int xEnd = (isRotated ? dimensions.y : dimensions.x) / 2;
             int yStart = -(isRotated ? dimensions.x : dimensions.y) / 2;
             int yEnd = ((isRotated ? dimensions.x : dimensions.y) / 2);
 
-            log("xStart: "+xStart+" xEnd: "+xEnd+" yStart: "+yStart+" yEnd: "+yEnd+"");
-            if(dimensions.y % 2 == 0){
-                if(!isRotated)
+            log("xStart: " + xStart + " xEnd: " + xEnd + " yStart: " + yStart + " yEnd: " + yEnd + "");
+            if (dimensions.y % 2 == 0) {
+                if (!isRotated)
                     yStart += 1;
                 else
                     xStart += 1;
             }
-            if(dimensions.x % 2 == 0){
-                if(!isRotated)
+            if (dimensions.x % 2 == 0) {
+                if (!isRotated)
                     xStart += 1;
                 else
                     yStart += 1;
@@ -232,9 +251,23 @@ public class BattleShipWar extends GameScene {
 
             for (int y = yStart; y <= yEnd; y++) {
                 for (int x = xStart; x <= xEnd; x++) {
-                    tiles[currentPoint.y + y][currentPoint.x + x].setHasSubmarine(addSubmarine);
+                    int tileY = currentPoint.y + y;
+                    int tileX = currentPoint.x + x;
+
+                    // Check if the point is inside the tiles array
+                    if (tileY < 0 || tileY >= tiles.length || tileX < 0 || tileX >= tiles[0].length) {
+                        return false; // Point is outside the array
+                    }
+
+                    // Check for collisions with other submarines (assuming hasSubmarine is true if a submarine is present)
+                    if (addSubmarine && tiles[tileY][tileX].hasSubmarine()) {
+                        return false; // Collision detected
+                    }
+
+                    tiles[tileY][tileX].setHasSubmarine(addSubmarine);
                 }
             }
+            return true; // Successfully set the tiles
         }
     }
     public class Tile extends GameEntity {
@@ -269,6 +302,10 @@ public class BattleShipWar extends GameScene {
                 submarineTileRenderer.setEnabled();
             }
             else submarineTileRenderer.setEnabled(false);
+        }
+
+        public boolean hasSubmarine() {
+            return hasSubmarine;
         }
     }
 }

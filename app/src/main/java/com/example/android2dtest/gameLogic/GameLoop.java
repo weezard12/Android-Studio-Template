@@ -57,20 +57,27 @@ public class GameLoop extends Thread {
     }
 
     private void updateAndRender() {
+        // Check if the scene is initialized
         if (scene != null) {
 
             Canvas canvas = null;
             try {
+                // Try to acquire the canvas for drawing
                 canvas = scene.getHolder().lockCanvas();
-                if (canvas != null) {
-                    synchronized (scene.getHolder()) {
-                        scene.update(deltaTime);
-                        scene.draw(canvas);
 
+                if (canvas != null) {
+                    // If canvas is acquired successfully
+                    synchronized (scene.getHolder()) {
+                        // Update the scene logic
+                        scene.update(deltaTime);
+                        // Draw the scene content on the canvas
+                        scene.draw(canvas);
                     }
                 }
             } finally {
+                // Ensure the canvas is released even if an exception occurs
                 if (canvas != null) {
+                    // Unlock the canvas and post the new drawing
                     scene.getHolder().unlockCanvasAndPost(canvas);
                 }
             }

@@ -137,9 +137,9 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(float delta){
-        for(GameEntity entity : entities){
-            entity.update(delta);
-        }
+        //update all entities
+        for (int i = 0; i < entities.size(); i++)
+            entities.get(i).update(delta);
 
         //updates physics
         PhysicsSystem.update(delta);
