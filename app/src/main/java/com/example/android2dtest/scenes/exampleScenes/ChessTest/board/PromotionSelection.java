@@ -1,23 +1,21 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
+
+import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.Shtokfish;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.ShtokfishThread;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.QueenPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.PieceType;
-import com.weezard12.shtokfishai.main.MyGdxGame;
-import com.weezard12.shtokfishai.main.MyUtils;
-import space.earlygrey.shapedrawer.ShapeDrawer;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessSceneBase;
+
 
 public class PromotionSelection {
 
     private static ShapeDrawer shapeDrawer;
     private static BasePiece pieceToPromote;
     private static GameBoard board;
-    private static Rectangle outlineBounds;
+    private static Box outlineBounds;
 
     private static final PromotionTile[] tiles = new PromotionTile[4];
 
@@ -32,16 +30,16 @@ public class PromotionSelection {
         PromotionSelection.board = board;
 
         if(!board.isBlackRotationBoard)
-            outlineBounds = new Rectangle((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() - (!pieceToPromote.isEnemy ? 3.4f : 0)) * MyGdxGame.tileSize,MyGdxGame.tileSize,MyGdxGame.tileSize*4.4f);
+            outlineBounds = new Box((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() - (!pieceToPromote.isEnemy ? 3.4f : 0)) * MyGdxGame.tileSize,MyGdxGame.tileSize,MyGdxGame.tileSize*4.4f);
         else
-            outlineBounds = new Rectangle((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() -3.4f + (!pieceToPromote.isEnemy ? 3.4f : 0)) * MyGdxGame.tileSize,MyGdxGame.tileSize,MyGdxGame.tileSize*4.4f);
+            outlineBounds = new Box((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() -3.4f + (!pieceToPromote.isEnemy ? 3.4f : 0)) * MyGdxGame.tileSize,MyGdxGame.tileSize,MyGdxGame.tileSize*4.4f);
 
         boolean colorPos = (pieceToPromote.isEnemy == !board.isBlackRotationBoard);
 
         tiles[0] = new PromotionTile(moveToTile.posX, (pieceToPromote.isEnemy == !board.isBlackRotationBoard)?0:7,moveToTile.bounds.x ,moveToTile.bounds.y, board,PieceType.QUEEN,pieceToPromote.isEnemy);
-        tiles[1] = new PromotionTile(moveToTile.posX, (pieceToPromote.isEnemy == !board.isBlackRotationBoard)?1:6,moveToTile.bounds.x ,moveToTile.bounds.y - (colorPos? -MyGdxGame.tileSize : MyGdxGame.tileSize), board,PieceType.KNIGHT,pieceToPromote.isEnemy);
-        tiles[2] = new PromotionTile(moveToTile.posX, (pieceToPromote.isEnemy == !board.isBlackRotationBoard)?2:5,moveToTile.bounds.x ,moveToTile.bounds.y - (colorPos? -MyGdxGame.tileSize*2 : MyGdxGame.tileSize*2), board,PieceType.ROOK,pieceToPromote.isEnemy);
-        tiles[3] = new PromotionTile(moveToTile.posX, (pieceToPromote.isEnemy == !board.isBlackRotationBoard)?3:4,moveToTile.bounds.x ,moveToTile.bounds.y - (colorPos? -MyGdxGame.tileSize*3 : MyGdxGame.tileSize*3), board,PieceType.BISHOP,pieceToPromote.isEnemy);
+        tiles[1] = new PromotionTile(moveToTile.posX, (pieceToPromote.isEnemy == !board.isBlackRotationBoard)?1:6,moveToTile.bounds.x ,moveToTile.bounds.y - (colorPos? -ChessSceneBase.tileSize : ChessSceneBase.tileSize), board,PieceType.KNIGHT,pieceToPromote.isEnemy);
+        tiles[2] = new PromotionTile(moveToTile.posX, (pieceToPromote.isEnemy == !board.isBlackRotationBoard)?2:5,moveToTile.bounds.x ,moveToTile.bounds.y - (colorPos? -ChessSceneBase.tileSize*2 : ChessSceneBase.tileSize*2), board,PieceType.ROOK,pieceToPromote.isEnemy);
+        tiles[3] = new PromotionTile(moveToTile.posX, (pieceToPromote.isEnemy == !board.isBlackRotationBoard)?3:4,moveToTile.bounds.x ,moveToTile.bounds.y - (colorPos? -ChessSceneBase.tileSize*3 : ChessSceneBase.tileSize*3), board,PieceType.BISHOP,pieceToPromote.isEnemy);
 
 
 

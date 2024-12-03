@@ -4,6 +4,7 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClas
 import android.graphics.Point;
 
 import com.example.android2dtest.gameLogic.MyDebug;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public abstract class BasePiece {
         posY = getPosY();
     }
 
-    public Texture texture;
+    public Sprite texture;
     public BasePiece(boolean isEnemy,BasePiece[][] board){
         this.board = board;
 

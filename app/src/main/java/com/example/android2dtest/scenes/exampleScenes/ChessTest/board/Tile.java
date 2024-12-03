@@ -1,6 +1,8 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
 import java.util.ArrayList;
+
+import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.QueenPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessSceneBase;
@@ -13,7 +15,7 @@ public class Tile {
     //from 0 - 8 (tiles on the board)
     public int posX;
     public int posY;
-    Rectangle bounds;
+    Box bounds;
 
     public int getTileBoundsYAsPos(){
         return (int) bounds.y / ChessSceneBase.tileSize;
