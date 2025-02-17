@@ -25,7 +25,7 @@ public class Tile {
         this.gameBoard = gameBoard;
         this.posX = posX;
         this.posY = posY;
-        bounds = new Rectangle((boundsX*MyGdxGame.tileSize)+gameBoard.offsetToRight,boundsY* MyGdxGame.tileSize,MyGdxGame.tileSize,MyGdxGame.tileSize);
+        bounds = new Rectangle((boundsX*ChessSceneBase.tileSize)+gameBoard.offsetToRight,boundsY* ChessSceneBase.tileSize,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
     }
 
     //creates the tile by providing the bounds of it NOT from (0 - 7) instead by a float of other tile bounds
@@ -33,7 +33,7 @@ public class Tile {
         this.gameBoard = gameBoard;
         this.posX = posX;
         this.posY = posY;
-        bounds = new Rectangle(boundsX,boundsY,MyGdxGame.tileSize,MyGdxGame.tileSize);
+        bounds = new Rectangle(boundsX,boundsY,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
     }
 
     @Override

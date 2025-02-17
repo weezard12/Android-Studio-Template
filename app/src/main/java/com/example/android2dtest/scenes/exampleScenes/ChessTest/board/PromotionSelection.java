@@ -30,9 +30,9 @@ public class PromotionSelection {
         PromotionSelection.board = board;
 
         if(!board.isBlackRotationBoard)
-            outlineBounds = new Box((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() - (!pieceToPromote.isEnemy ? 3.4f : 0)) * MyGdxGame.tileSize,MyGdxGame.tileSize,MyGdxGame.tileSize*4.4f);
+            outlineBounds = new Box((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() - (!pieceToPromote.isEnemy ? 3.4f : 0)) * ChessSceneBase.tileSize,ChessSceneBase.tileSize,ChessSceneBase.tileSize*4.4f);
         else
-            outlineBounds = new Box((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() -3.4f + (!pieceToPromote.isEnemy ? 3.4f : 0)) * MyGdxGame.tileSize,MyGdxGame.tileSize,MyGdxGame.tileSize*4.4f);
+            outlineBounds = new Box((moveToTile.bounds.x ),(moveToTile.getTileBoundsYAsPos() -3.4f + (!pieceToPromote.isEnemy ? 3.4f : 0)) * ChessSceneBase.tileSize,ChessSceneBase.tileSize,ChessSceneBase.tileSize*4.4f);
 
         boolean colorPos = (pieceToPromote.isEnemy == !board.isBlackRotationBoard);
 
@@ -57,27 +57,27 @@ public class PromotionSelection {
         shapeDrawer.rectangle(outlineBounds, Color.CYAN,4);
         shapeDrawer.filledRectangle(outlineBounds, pieceToPromote.isEnemy ? Color.BLACK : Color.WHITE);
 
-        shapeDrawer.line(outlineBounds.x,outlineBounds.y + (colorPos?-MyGdxGame.tileSize:MyGdxGame.tileSize) * 0.4f  + outlineBounds.height * (colorPos?1:0)   ,outlineBounds.x + outlineBounds.width,outlineBounds.y + (colorPos?-MyGdxGame.tileSize:MyGdxGame.tileSize) * 0.4f  + outlineBounds.height * (colorPos?1:0) ,Color.CYAN,2);
+        shapeDrawer.line(outlineBounds.x,outlineBounds.y + (colorPos?-ChessSceneBase.tileSize:ChessSceneBase.tileSize) * 0.4f  + outlineBounds.height * (colorPos?1:0)   ,outlineBounds.x + outlineBounds.width,outlineBounds.y + (colorPos?-ChessSceneBase.tileSize:ChessSceneBase.tileSize) * 0.4f  + outlineBounds.height * (colorPos?1:0) ,Color.CYAN,2);
 
         MyUtils.drawX(shapeDrawer,
-            outlineBounds.x + MyGdxGame.tileSize * 0.4f,
-            outlineBounds.y  + outlineBounds.height * (colorPos?1:0)  + (colorPos?-MyGdxGame.tileSize:MyGdxGame.tileSize) * 0.1f,
-            outlineBounds.x + outlineBounds.width - MyGdxGame.tileSize * 0.4f,
-            outlineBounds.y + (colorPos?-MyGdxGame.tileSize:MyGdxGame.tileSize) * 0.4f  + outlineBounds.height * (colorPos?1:0) - (colorPos?-MyGdxGame.tileSize:MyGdxGame.tileSize) * 0.1f,
+            outlineBounds.x + ChessSceneBase.tileSize * 0.4f,
+            outlineBounds.y  + outlineBounds.height * (colorPos?1:0)  + (colorPos?-ChessSceneBase.tileSize:ChessSceneBase.tileSize) * 0.1f,
+            outlineBounds.x + outlineBounds.width - ChessSceneBase.tileSize * 0.4f,
+            outlineBounds.y + (colorPos?-ChessSceneBase.tileSize:ChessSceneBase.tileSize) * 0.4f  + outlineBounds.height * (colorPos?1:0) - (colorPos?-ChessSceneBase.tileSize:ChessSceneBase.tileSize) * 0.1f,
             Color.CYAN,3);
 
 
     }
     private static void renderPieces(){
-        shapeDrawer.getBatch().draw(MyGdxGame.piecesTextures.get(String.format("QUEEN%s.png",pieceToPromote.isEnemy?1:0)), tiles[0].bounds.x,tiles[0].posY*MyGdxGame.tileSize +10, MyGdxGame.tileSize, MyGdxGame.tileSize);
-        shapeDrawer.getBatch().draw(MyGdxGame.piecesTextures.get(String.format("KNIGHT%s.png",pieceToPromote.isEnemy?1:0)), tiles[1].bounds.x,tiles[1].posY*MyGdxGame.tileSize +10, MyGdxGame.tileSize, MyGdxGame.tileSize);
-        shapeDrawer.getBatch().draw(MyGdxGame.piecesTextures.get(String.format("ROOK%s.png",pieceToPromote.isEnemy?1:0)), tiles[2].bounds.x,tiles[2].posY*MyGdxGame.tileSize +10, MyGdxGame.tileSize, MyGdxGame.tileSize);
-        shapeDrawer.getBatch().draw(MyGdxGame.piecesTextures.get(String.format("BISHOP%s.png",pieceToPromote.isEnemy?1:0)), tiles[3].bounds.x,tiles[3].posY*MyGdxGame.tileSize +10, MyGdxGame.tileSize, MyGdxGame.tileSize);
+        shapeDrawer.getBatch().draw(ChessSceneBase.piecesTextures.get(String.format("QUEEN%s.png",pieceToPromote.isEnemy?1:0)), tiles[0].bounds.x,tiles[0].posY*ChessSceneBase.tileSize +10, ChessSceneBase.tileSize, ChessSceneBase.tileSize);
+        shapeDrawer.getBatch().draw(ChessSceneBase.piecesTextures.get(String.format("KNIGHT%s.png",pieceToPromote.isEnemy?1:0)), tiles[1].bounds.x,tiles[1].posY*ChessSceneBase.tileSize +10, ChessSceneBase.tileSize, ChessSceneBase.tileSize);
+        shapeDrawer.getBatch().draw(ChessSceneBase.piecesTextures.get(String.format("ROOK%s.png",pieceToPromote.isEnemy?1:0)), tiles[2].bounds.x,tiles[2].posY*ChessSceneBase.tileSize +10, ChessSceneBase.tileSize, ChessSceneBase.tileSize);
+        shapeDrawer.getBatch().draw(ChessSceneBase.piecesTextures.get(String.format("BISHOP%s.png",pieceToPromote.isEnemy?1:0)), tiles[3].bounds.x,tiles[3].posY*ChessSceneBase.tileSize +10, ChessSceneBase.tileSize, ChessSceneBase.tileSize);
     }
 
     public static void checkForInput(){
         for (PromotionTile tile: tiles) {
-            if(tile.bounds.contains(Gdx.input.getX(),MyGdxGame.boardSize - Gdx.input.getY())) {
+            if(tile.bounds.contains(Gdx.input.getX(),ChessSceneBase.boardSize - Gdx.input.getY())) {
                 tile.setNewPieceAt(tile.posX, pieceToPromote.posY +1 -2 * (pieceToPromote.isEnemy?1:0));
 
 
@@ -91,7 +91,7 @@ public class PromotionSelection {
                 Shtokfish.thread.start();
                 break;
             }
-            else if(outlineBounds.contains(Gdx.input.getX(),MyGdxGame.boardSize - Gdx.input.getY())){
+            else if(outlineBounds.contains(Gdx.input.getX(),ChessSceneBase.boardSize - Gdx.input.getY())){
                 board.board[pieceToPromote.posY][pieceToPromote.posX] = pieceToPromote;
                 isPromoting = false;
                 board.isBlackTurn = pieceToPromote.isEnemy;

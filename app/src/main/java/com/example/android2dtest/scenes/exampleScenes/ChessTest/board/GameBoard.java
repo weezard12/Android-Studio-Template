@@ -3,9 +3,14 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
 import android.graphics.Point;
 
+import com.example.android2dtest.gameLogic.GameLoop;
+import com.example.android2dtest.gameLogic.MyDebug;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.Shtokfish;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.BishopPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.KingPiece;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.KnightPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.PawnPiece;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.QueenPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.RookPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.PieceType;
@@ -92,7 +97,7 @@ public class GameBoard {
             else for (Tile[] row: tiles) {
                 for (Tile tile: row) {
 
-                    if(tile.bounds.contains(Gdx.input.getX(),MyGdxGame.boardSize - Gdx.input.getY())){
+                    if(tile.bounds.contains(Gdx.input.getX(),ChessSceneBase.boardSize - Gdx.input.getY())){
                         MyDebug.log("click on tile",tile.toString());
                         if (selectedTile == null){
 
@@ -266,7 +271,7 @@ public class GameBoard {
                         break;
                 }
 
-                //shapeDrawer.filledRectangle(new Rectangle(x*MyGdxGame.tileSIze + offsetToRight,y*MyGdxGame.tileSIze,MyGdxGame.tileSIze,MyGdxGame.tileSIze));
+                //shapeDrawer.filledRectangle(new Rectangle(x*ChessSceneBase.tileSIze + offsetToRight,y*ChessSceneBase.tileSIze,ChessSceneBase.tileSIze,ChessSceneBase.tileSIze));
                 shapeDrawer.filledRectangle(tiles[y][x].bounds);
             }
 
@@ -278,7 +283,7 @@ public class GameBoard {
                 if(board[y][x]!=null){
                     //set piece texture if null
                     if(board[y][x].texture == null)
-                        board[y][x].texture = MyGdxGame.piecesTextures.get(String.format("%s%s.png",board[y][x].type,board[y][x].isEnemy ? 1 : 0 ));
+                        board[y][x].texture = ChessSceneBase.piecesTextures.get(String.format("%s%s.png",board[y][x].type,board[y][x].isEnemy ? 1 : 0 ));
 
 
 
@@ -286,13 +291,13 @@ public class GameBoard {
                     {
                         if(movedToTile.posX == x && movedToTile.posY == y){
                             getPieceInterpolation(movedFromTile.bounds.x,movedFromTile.bounds.y + 8,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8);
-                            batch.draw(board[y][x].texture,interpolation.x,interpolation.y,MyGdxGame.tileSize,MyGdxGame.tileSize);
+                            batch.draw(board[y][x].texture,interpolation.x,interpolation.y,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
                         }
                         else
-                            batch.draw(board[y][x].texture,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8,MyGdxGame.tileSize,MyGdxGame.tileSize);
+                            batch.draw(board[y][x].texture,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
                     }
                     else{
-                        batch.draw(board[y][x].texture,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8,MyGdxGame.tileSize,MyGdxGame.tileSize);
+                        batch.draw(board[y][x].texture,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
                     }
 
                 }
@@ -305,7 +310,7 @@ public class GameBoard {
     protected void getPieceInterpolation(float startX, float startY, float endX, float endY){
         interpolation.x = (int)Interpolation.pow2.apply(startX, endX, elapsedTime);
         interpolation.y = (int)Interpolation.pow2.apply(startY, endY, elapsedTime);
-            elapsedTime += Gdx.graphics.getDeltaTime() * 5;
+        elapsedTime += GameLoop.deltaTime * 5;
     }
     //endregion
     //region Setup Board
@@ -322,7 +327,6 @@ public class GameBoard {
                 boolean color = piece.charAt(0)=='B';
                 if(color)
                     piece = new StringBuilder(piece.substring(1));
-                Gdx .app.log("p: ",piece +" "+x+" "+y +" "+color);
                 switch (piece.toString()){
                     case "p":
                        board[y][x]= new PawnPiece(color,board);
