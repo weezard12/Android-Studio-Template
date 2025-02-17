@@ -5,7 +5,7 @@ import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.android2dtest.gameLogic.myECS.GameScene;
-import com.example.android2dtest.gameLogic.myECS.Transform;
+import com.example.android2dtest.gameLogic.math.Transform;
 import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.RenderableComponent;
 

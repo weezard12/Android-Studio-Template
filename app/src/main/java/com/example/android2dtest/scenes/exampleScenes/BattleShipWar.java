@@ -12,7 +12,7 @@ import com.example.android2dtest.gameLogic.myECS.Panel;
 import com.example.android2dtest.gameLogic.myECS.components.touchable.ClickableComponent;
 import com.example.android2dtest.gameLogic.myECS.components.touchable.DraggableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
-import com.example.android2dtest.gameLogic.myECS.GridPoints;
+import com.example.android2dtest.gameLogic.math.GridPoints;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.BoxRenderer;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.RotatableSpriteRenderer;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;

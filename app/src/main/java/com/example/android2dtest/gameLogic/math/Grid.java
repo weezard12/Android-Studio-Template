@@ -1,6 +1,4 @@
-package com.example.android2dtest.gameLogic.myECS;
-
-import android.graphics.Point;
+package com.example.android2dtest.gameLogic.math;
 
 public abstract class Grid<T> {
     protected T[][] grid;
