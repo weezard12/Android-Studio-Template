@@ -77,8 +77,8 @@ public class PromotionSelection {
         shapeDrawer.getBatch().draw(ChessSceneBase.piecesTextures.get(String.format("BISHOP%s.png",pieceToPromote.isEnemy?1:0)), tiles[3].bounds.x,tiles[3].posY*ChessSceneBase.tileSize +10, ChessSceneBase.tileSize, ChessSceneBase.tileSize);*/
     }
 
-/*    public static void checkForInput(){
-        for (PromotionTile tile: tiles) {
+    public static void checkForInput(){
+/*        for (PromotionTile tile: tiles) {
             if(tile.bounds.contains(Gdx.input.getX(),ChessSceneBase.boardSize - Gdx.input.getY())) {
                 tile.setNewPieceAt(tile.posX, pieceToPromote.posY +1 -2 * (pieceToPromote.isEnemy?1:0));
 
@@ -98,8 +98,8 @@ public class PromotionSelection {
                 isPromoting = false;
                 board.isBlackTurn = pieceToPromote.isEnemy;
             }
-        }
+        }*/
 
-    }*/
+    }
 
 }

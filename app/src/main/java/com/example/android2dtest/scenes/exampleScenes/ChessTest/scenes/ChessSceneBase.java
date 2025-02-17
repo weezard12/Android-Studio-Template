@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.gameLogic.MyDebug;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
@@ -53,6 +54,12 @@ public class ChessSceneBase extends GameScene {
         super.start();
     }
 
+    @Override
+    protected void handleClick(float x, float y) {
+        super.handleClick(x, y);
+        gameBoard.checkForInput(x,y);
+    }
+
     private void loadPiecesTextures(Context context) {
         piecesTextures = new HashMap<>();
 
@@ -78,6 +85,7 @@ public class ChessSceneBase extends GameScene {
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
             Sprite sprite = new Sprite(bitmap);
             piecesTextures.put(resourceName, sprite);
+            MyDebug.log(resourceName);
         }
     }
 }

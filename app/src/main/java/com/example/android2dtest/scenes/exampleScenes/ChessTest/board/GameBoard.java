@@ -76,72 +76,72 @@ public class GameBoard extends RenderableComponent {
     }
 
 
-    //update
-    public void updateBoard(){
-        if(isUpdatingInput)
-            checkForInput();
-    }
-    protected void checkForInput(){
+    //check for input
+    public void checkForInput(float inputX, float inputY){
+
+        if(!isUpdatingInput)
+            return;
+
         //if moving the bot, and he is thinking cancel the input
         if(moveTheBot)
             if(Shtokfish.thread.isCalculating)
                 return;
-/*
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
 
-            //if promotion is in process
-            if(PromotionSelection.isPromoting)
-                PromotionSelection.checkForInput();
+        //if promotion is in process
+        if(PromotionSelection.isPromoting)
+            PromotionSelection.checkForInput();
 
-            //if not promoting
+            //if not promotingt
             else for (Tile[] row: tiles) {
                 for (Tile tile: row) {
 
-                    if(tile.bounds.contains(Gdx.input.getX(),ChessSceneBase.boardSize - Gdx.input.getY())){
-                        MyDebug.log("click on tile",tile.toString());
-                        if (selectedTile == null){
+                    if (tile.collisionBounds.contains(inputX, inputY)) {
+                        MyDebug.log("click on tile", tile.toString());
+                        if (selectedTile == null) {
 
                             clearMoveHighLight();
 
                             selectedTile = tile;
-                            selectedTile.highlightType=TileHighlightType.SELECTED;
-                            if(board[selectedTile.posY][selectedTile.posX] != null){
-                                if (isBlackTurn == board[selectedTile.posY][selectedTile.posX].isEnemy)
-                                {
+                            selectedTile.highlightType = TileHighlightType.SELECTED;
+                            if (board[selectedTile.posY][selectedTile.posX] != null) {
+                                if (isBlackTurn == board[selectedTile.posY][selectedTile.posX].isEnemy) {
                                     possibleMoves.clear();
-                                    board[selectedTile.posY][selectedTile.posX].getAllPossibleMoves(selectedTile.posX,selectedTile.posY,possibleMoves);
-                                    Tile.setTileHighlight(possibleMoves,board[selectedTile.posY][selectedTile.posX],tiles);
+                                    board[selectedTile.posY][selectedTile.posX].getAllPossibleMoves(selectedTile.posX, selectedTile.posY, possibleMoves);
+                                    Tile.setTileHighlight(possibleMoves, board[selectedTile.posY][selectedTile.posX], tiles);
                                 }
 
                             }
 
                             //MyDebug.log("check check",""+board[selectedTile.posY][selectedTile.posX].doesCheck(finedKingInBoard(board,board[selectedTile.posY][selectedTile.posX].isEnemy?false:true)));
                         }
-                        else if(tile == selectedTile){
+                        else if (tile == selectedTile) {
                             clearMoveHighLight();
-                            selectedTile.highlightType=TileHighlightType.NONE;
+                            selectedTile.highlightType = TileHighlightType.NONE;
                             selectedTile = null;
                         }
-                        else{
-                            if(board[selectedTile.posY][selectedTile.posX] != null){
-                                movePiece(tile,board[selectedTile.posY][selectedTile.posX]);
+                        else {
+                            if(tile.highlightType==TileHighlightType.CAN_MOVE_TO)
+                            {
+                                if (board[selectedTile.posY][selectedTile.posX] != null) {
+                                    movePiece(tile, board[selectedTile.posY][selectedTile.posX]);
+                                }
+                                clearMoveHighLight();
+                                selectedTile.highlightType = TileHighlightType.NONE;
+                                selectedTile = null;
                             }
 
-
-                            clearMoveHighLight();
-                            selectedTile.highlightType=TileHighlightType.NONE;
-                            selectedTile = null;
 
 
                         }
 
                     }
-
                 }
 
-            }
+
+
+
         }
-*/
+
     }
 
     public void movePiece(Tile tile,BasePiece selectedPiece){
@@ -274,7 +274,7 @@ public class GameBoard extends RenderableComponent {
                 }
 
                 //shapeDrawer.filledRectangle(new Rectangle(x*ChessSceneBase.tileSIze + offsetToRight,y*ChessSceneBase.tileSIze,ChessSceneBase.tileSIze,ChessSceneBase.tileSIze));
-                Batch.drawBox(canvas, tiles[y][x].positionOnScreen.x, tiles[y][x].positionOnScreen.y ,tiles[y][x].bounds, color);
+                Batch.drawBox(canvas, tiles[y][x].positionOnScreen.x, tiles[y][x].positionOnScreen.y  ,tiles[y][x].bounds, color);
             }
 
         }
@@ -285,22 +285,22 @@ public class GameBoard extends RenderableComponent {
                 if(board[y][x]!=null){
                     //set piece texture if null
                     if(board[y][x].texture == null)
-                        board[y][x].texture = ChessSceneBase.piecesTextures.get(String.format("%s%s.png",board[y][x].type,board[y][x].isEnemy ? 1 : 0 ));
+                        board[y][x].texture = ChessSceneBase.piecesTextures.get(String.format("%s%s",board[y][x].type.toString().toLowerCase(),board[y][x].isEnemy ? 1 : 0 ));
 
 
 
-/*                    if(elapsedTime < 1)
+                    if(elapsedTime < 1)
                     {
                         if(movedToTile.posX == x && movedToTile.posY == y){
-                            getPieceInterpolation(movedFromTile.bounds.x,movedFromTile.bounds.y + 8,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8);
-                            batch.draw(board[y][x].texture,interpolation.x,interpolation.y,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
+                            getPieceInterpolation(movedFromTile.positionOnScreen.x,movedFromTile.positionOnScreen.y  - 8,tiles[y][x].positionOnScreen.x,tiles[y][x].positionOnScreen.y   - 8);
+                            Batch.drawSprite(canvas,board[y][x].texture,interpolation.x,interpolation.y,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
                         }
                         else
-                            batch.draw(board[y][x].texture,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
+                            Batch.drawSprite(canvas,board[y][x].texture,tiles[y][x].positionOnScreen.x ,tiles[y][x].positionOnScreen.y - 8,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
                     }
                     else{
-                        batch.draw(board[y][x].texture,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
-                    }*/
+                        Batch.drawSprite(canvas,board[y][x].texture,tiles[y][x].positionOnScreen.x,tiles[y][x].positionOnScreen.y - 8,ChessSceneBase.tileSize,ChessSceneBase.tileSize)                       ;
+                    }
 
                 }
             }

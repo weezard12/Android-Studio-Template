@@ -11,5 +11,6 @@ public class ChessHotSit extends ChessSceneBase{
      */
     public ChessHotSit(Context context) {
         super(context);
+        gameBoard.isUpdatingInput = true;
     }
 }
