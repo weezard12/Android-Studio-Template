@@ -16,7 +16,7 @@
 
 /**
  This class was clowned from the LibGDX repository.
- LibGDX if my favorite Java Framework and i highly recommend checking them out.
+ LibGDX if my favorite Java Framework and I highly recommend checking them out.
 
  LibGDX repository: https://github.com/libgdx/libgdx
  **/

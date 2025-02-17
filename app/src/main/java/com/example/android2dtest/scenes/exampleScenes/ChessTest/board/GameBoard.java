@@ -1,11 +1,18 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 
 import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.MyDebug;
+import com.example.android2dtest.gameLogic.math.Interpolation;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.Batch;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.RenderableComponent;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.Shtokfish;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.ShtokfishThread;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.BishopPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.KingPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.KnightPiece;
@@ -18,7 +25,7 @@ import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessScen
 
 import java.util.ArrayList;
 
-public class GameBoard {
+public class GameBoard extends RenderableComponent {
     public boolean isBlackTurn = false;
     public boolean isBlackRotationBoard = false;
 
@@ -47,8 +54,6 @@ public class GameBoard {
     }
 
     public BasePiece[][] board;
-    public SpriteBatch batch;
-    public ShapeDrawer shapeDrawer;
     public static BoardColors boardColors = new BoardColors(Color.WHITE,Color.BLACK,Color.BLUE,Color.CYAN);
 
     ArrayList<BasePiece[][]> possibleMoves = new ArrayList<>();
@@ -56,23 +61,18 @@ public class GameBoard {
     //Debug
     public boolean isFreeMove = true;
 
-    public GameBoard(SpriteBatch batch){
-        this.batch = batch;
+    public GameBoard(){
 
         board = new BasePiece[8][8];
 
         tiles = new Tile[8][8];
         createTiles(false);
 
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.drawPixel(0, 0);
-        Texture texture = new Texture(pixmap); //remember to dispose of later
-        pixmap.dispose();
-        TextureRegion region = new TextureRegion(texture, 0, 0, 1, 1);
+    }
 
-        shapeDrawer = new ShapeDrawer(batch, region);
-
+    @Override
+    public void render(float delta, Canvas canvas) {
+        renderBoard(canvas);
     }
 
 
@@ -86,7 +86,7 @@ public class GameBoard {
         if(moveTheBot)
             if(Shtokfish.thread.isCalculating)
                 return;
-
+/*
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
 
             //if promotion is in process
@@ -141,7 +141,7 @@ public class GameBoard {
 
             }
         }
-
+*/
     }
 
     public void movePiece(Tile tile,BasePiece selectedPiece){
@@ -248,36 +248,38 @@ public class GameBoard {
     }
 
     //region Render
-    public void renderBoard(){
+    public void renderBoard(Canvas canvas){
 
-        drawBoard();
-        drawPieces();
+        drawBoard(canvas);
+        drawPieces(canvas);
         if(PromotionSelection.isPromoting)
             PromotionSelection.renderPromotion();
 
     }
-    protected void drawBoard(){
+
+    protected void drawBoard(Canvas canvas){
         for (int y = 0; y<8;y++){
             for (int x = 0; x<8;x++){
+                Color color = null;
                 switch (tiles[y][x].highlightType){
                     case NONE:
-                        shapeDrawer.setColor(((x+y) % 2 == 0) ? boardColors.black : boardColors.white);
+                        color = ((x+y) % 2 == 0) ? boardColors.black : boardColors.white;
                         break;
                     case SELECTED:
-                        shapeDrawer.setColor(boardColors.selectedTile);
+                        color = boardColors.selectedTile;
                         break;
                     case CAN_MOVE_TO:
-                        shapeDrawer.setColor(boardColors.movesHighlightColor);
+                        color = boardColors.movesHighlightColor;
                         break;
                 }
 
                 //shapeDrawer.filledRectangle(new Rectangle(x*ChessSceneBase.tileSIze + offsetToRight,y*ChessSceneBase.tileSIze,ChessSceneBase.tileSIze,ChessSceneBase.tileSIze));
-                shapeDrawer.filledRectangle(tiles[y][x].bounds);
+                Batch.drawBox(canvas, tiles[y][x].positionOnScreen.x, tiles[y][x].positionOnScreen.y ,tiles[y][x].bounds, color);
             }
 
         }
     }
-    protected void drawPieces(){
+    protected void drawPieces(Canvas canvas){
         for (int y = 0; y < 8;y++){
             for (int x = 0; x < 8;x++){
                 if(board[y][x]!=null){
@@ -287,7 +289,7 @@ public class GameBoard {
 
 
 
-                    if(elapsedTime < 1)
+/*                    if(elapsedTime < 1)
                     {
                         if(movedToTile.posX == x && movedToTile.posY == y){
                             getPieceInterpolation(movedFromTile.bounds.x,movedFromTile.bounds.y + 8,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8);
@@ -298,7 +300,7 @@ public class GameBoard {
                     }
                     else{
                         batch.draw(board[y][x].texture,tiles[y][x].bounds.x,tiles[y][x].bounds.y + 8,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
-                    }
+                    }*/
 
                 }
             }

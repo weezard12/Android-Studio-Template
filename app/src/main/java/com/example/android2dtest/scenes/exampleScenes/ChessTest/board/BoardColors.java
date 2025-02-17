@@ -13,4 +13,10 @@ public class BoardColors {
         this.selectedTile = selectedTile;
         this.movesHighlightColor = movesHighlightColor;
     }
+    public BoardColors(int white, int black, int selectedTile,int movesHighlightColor){
+        this.white = Color.valueOf(white);
+        this.black = Color.valueOf(black);
+        this.selectedTile = Color.valueOf(selectedTile);
+        this.movesHighlightColor = Color.valueOf(movesHighlightColor);
+    }
 }

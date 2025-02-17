@@ -1,7 +1,10 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
+import android.graphics.PointF;
+
 import java.util.ArrayList;
 
+import com.example.android2dtest.gameLogic.MyDebug;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.QueenPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
@@ -15,17 +18,24 @@ public class Tile {
     //from 0 - 8 (tiles on the board)
     public int posX;
     public int posY;
+
+    public PointF positionOnScreen;
+
     Box bounds;
 
+
     public int getTileBoundsYAsPos(){
-        return (int) bounds.y / ChessSceneBase.tileSize;
+        return (int) positionOnScreen.y;
     }
 
     public Tile(int posX, int posY, int boundsX, int boundsY, GameBoard gameBoard){
         this.gameBoard = gameBoard;
         this.posX = posX;
         this.posY = posY;
-        bounds = new Rectangle((boundsX*ChessSceneBase.tileSize)+gameBoard.offsetToRight,boundsY* ChessSceneBase.tileSize,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
+
+        this.positionOnScreen = new PointF(boundsX*ChessSceneBase.tileSize + GameBoard.offsetToRight,boundsY* ChessSceneBase.tileSize);
+
+        this.bounds = new Box(ChessSceneBase.tileSize, ChessSceneBase.tileSize);
     }
 
     //creates the tile by providing the bounds of it NOT from (0 - 7) instead by a float of other tile bounds
@@ -33,7 +43,9 @@ public class Tile {
         this.gameBoard = gameBoard;
         this.posX = posX;
         this.posY = posY;
-        bounds = new Rectangle(boundsX,boundsY,ChessSceneBase.tileSize,ChessSceneBase.tileSize);
+        bounds = new Box(ChessSceneBase.tileSize,ChessSceneBase.tileSize);
+        this.positionOnScreen = new PointF(boundsX,boundsY);
+
     }
 
     @Override
