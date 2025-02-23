@@ -83,8 +83,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
+            android:layout_marginStart="128dp"
+            android:layout_marginEnd="128dp" />
 
         <!-- "Play VS Bot" Button -->
         <Button
@@ -98,8 +98,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="12dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
+            android:layout_marginStart="128dp"
+            android:layout_marginEnd="128dp" />
 
         <!-- "Settings" Button -->
         <Button
@@ -113,8 +113,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="12dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
+            android:layout_marginStart="128dp"
+            android:layout_marginEnd="128dp" />
 
         <!-- "Quit" Button -->
         <Button
@@ -128,8 +128,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="12dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
+            android:layout_marginStart="128dp"
+            android:layout_marginEnd="128dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
