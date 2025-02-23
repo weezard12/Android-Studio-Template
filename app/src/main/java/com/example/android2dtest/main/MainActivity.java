@@ -2,6 +2,7 @@ package com.example.android2dtest.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
@@ -11,6 +12,7 @@ import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessHotSit;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.MenuActivity;
 import com.example.android2dtest.scenes.exampleScenes.RenderingExample;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // Request window without title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // Hide the status bar
+/*        // Hide the status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -44,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(scene);
         GameLoop gameLoop = new GameLoop(scene);
-        gameLoop.start();
+        gameLoop.start();*/
 
 
 
-        //Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 }
