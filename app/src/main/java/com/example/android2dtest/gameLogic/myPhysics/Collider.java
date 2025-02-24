@@ -25,4 +25,10 @@ public abstract class Collider extends GameComponent {
         PhysicsSystem.addCollider(this);
         collisionShape.center = entity.getTransform().position;
     }
+
+    @Override
+    public void detachFromEntity() {
+        PhysicsSystem.removeCollider(this);
+        super.detachFromEntity();
+    }
 }

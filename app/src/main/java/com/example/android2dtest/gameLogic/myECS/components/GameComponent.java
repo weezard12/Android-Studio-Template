@@ -13,7 +13,7 @@ public abstract class GameComponent {
         this.entity = entity;
     }
 
-    public void detachFromEntity(GameEntity entity) {
+    public void detachFromEntity() {
         this.entity = null;
     }
     public boolean getEnabled(){

@@ -26,9 +26,8 @@ public abstract class TouchBase extends GameComponent {
     }
 
     @Override
-    public void detachFromEntity(GameEntity entity) {
-        super.detachFromEntity(entity);
+    public void detachFromEntity() {
         entity.scene.removeTouchable(this);
-        log("removed");
+        super.detachFromEntity();
     }
 }

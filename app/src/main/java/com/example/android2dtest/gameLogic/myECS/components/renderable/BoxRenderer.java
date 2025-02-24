@@ -10,6 +10,10 @@ public class BoxRenderer extends RenderableComponent {
         this.width = width;
         this.height = height;
     }
+    public BoxRenderer(float widthAndHeight) {
+        this.width = widthAndHeight;
+        this.height = widthAndHeight;
+    }
 
     @Override
     public void render(float delta, Canvas canvas) {

@@ -87,8 +87,22 @@ public class GameEntity {
         this.scene = scene;
     }
 
+    // calls the GameScene.removeEntity() for this Entity
+    public void destroy(){
+        scene.detachEntity(this);
+        for (GameComponent componentToRemove : components) {
+            componentToRemove.detachFromEntity();
+        }
+        components.clear();
+
+        for (RenderableComponent componentToRemove : renderableComponents) {
+            componentToRemove.detachFromEntity();
+        }
+        renderableComponents.clear();
+    }
+
     public void removeComponent(GameComponent component){
-        component.detachFromEntity(this);
+        component.detachFromEntity();
 
         if(component instanceof RenderableComponent)
             renderableComponents.remove(component);
@@ -107,7 +121,7 @@ public class GameEntity {
             GameComponent c = iterator.next();
             if (componentClass.isInstance(c)) {
                 iterator.remove();
-                c.detachFromEntity(this); // Ensure component is detached
+                c.detachFromEntity(); // Ensure component is detached
                 return; // Remove this line if you want to remove all matching components
             }
         }

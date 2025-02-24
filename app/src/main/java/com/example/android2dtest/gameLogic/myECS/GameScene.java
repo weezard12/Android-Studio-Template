@@ -12,8 +12,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
@@ -28,6 +26,7 @@ import java.util.List;
 
 public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     private final List<GameEntity> entities;
+    private final List<GameEntity> removeEntitiesAfterUpdate;
     private final List<TouchBase> touchables;
     private final List<TouchBase> removeTouchablesAfterUpdate;
     public ContentManager contentManager;
@@ -80,6 +79,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         contentManager = new ContentManager(context);
         getHolder().addCallback(this);
         removeTouchablesAfterUpdate = new ArrayList<>();
+        removeEntitiesAfterUpdate = new ArrayList<>();
     }
 
     //this method will be called from the game loop.
@@ -140,6 +140,11 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(float delta){
+
+        for (GameEntity entityToRemove : removeEntitiesAfterUpdate) {
+            entities.remove(entityToRemove);
+        }
+
         //update all entities
         for (int i = 0; i < entities.size(); i++)
             entities.get(i).update(delta);
@@ -151,6 +156,13 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     public void addEntity(GameEntity entity){
         entity.attachToScene(this);
         entities.add(entity);
+    }
+
+    public void detachEntity(GameEntity entity){
+        removeEntitiesAfterUpdate.add(entity);
+    }
+    public void detachEntity(String name){
+        removeEntitiesAfterUpdate.add(getEntity(name));
     }
 
     public GameEntity getEntity(String name){
