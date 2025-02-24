@@ -1,7 +1,7 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -77,12 +77,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         else if(settingsButton.equals(v)){
-
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
         else if(quitButton.equals(v)){
             finishAffinity(); // Closes all activities in the task
             System.exit(0);   // Optional, forces the app to exit
-
         }
     }
 }
