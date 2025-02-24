@@ -4,7 +4,7 @@ import android.util.Log;
 
 public final class MyDebug {
 
-    private static final boolean DEBUG_ENABLED = false;
+    private static final boolean DEBUG_ENABLED = true;
     public static void log(String massage){
         if(DEBUG_ENABLED)
             Log.i("debug", massage);

@@ -6,14 +6,20 @@
     android:gravity="center"
     android:clickable="true"
     android:focusable="true"
-    android:layout_margin="0dp">
+    android:layout_margin="0dp"
+    >
 
     <!-- Wrapper layout for gradient -->
     <LinearLayout
         android:id="@+id/contentLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:elevation="8dp"
+        android:shadowColor="#80000000"
+        android:shadowRadius="8"
+        android:shadowDx="4"
+        android:shadowDy="4">
 
         <!-- Theme Color 1 -->
         <View

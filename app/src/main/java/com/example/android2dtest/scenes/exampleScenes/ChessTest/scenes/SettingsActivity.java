@@ -1,7 +1,10 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -11,12 +14,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.main.MainActivity;
 import com.example.android2dtest.main.MyUtils;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.BoardColors;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     LinearLayout themesLayout;
+
+    Button backButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +35,14 @@ public class SettingsActivity extends AppCompatActivity {
             return insets;
         });
 
+        backButton = findViewById(R.id.btnBack);
+        backButton.setOnClickListener(this);
+
         themesLayout = findViewById(R.id.themesLayout);
-
-
+        updateThemes();
+    }
+    public void updateThemes(){
+        themesLayout.removeAllViews();
         themesLayout.addView(new ThemeSelectorView(this, new BoardColors(Color.WHITE,Color.BLACK,Color.BLUE,Color.CYAN),"Default"));
         themesLayout.addView(new ThemeSelectorView(this,
                 new BoardColors(MyUtils.rgbToFloatRgb(235,236,208), MyUtils.rgbToFloatRgb(115,149,82), Color.valueOf(Color.BLUE), Color.valueOf(Color.CYAN)),
@@ -55,7 +67,14 @@ public class SettingsActivity extends AppCompatActivity {
         themesLayout.addView(new ThemeSelectorView(this,
                 new BoardColors(MyUtils.rgbToFloatRgb(237,203,165), MyUtils.rgbToFloatRgb(216,164,109), Color.valueOf(Color.BLUE), Color.valueOf(Color.CYAN)),
                 "Light Brown"));
+    }
 
+    @Override
+    public void onClick(View v) {
+        if(v.equals(backButton)){
+            Intent intent = new Intent(        this, MenuActivity.class);
+            startActivity(intent);
+        }
 
     }
 }
