@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.GameLoop;
+import com.example.android2dtest.gameLogic.MusicManager;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessHotSit;
@@ -52,5 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
         startActivity(intent);
+
+        MusicManager musicManager = MusicManager.getInstance(this);
+        musicManager.loadMusic(this, R.raw.background_music);
+        musicManager.playMusic();
     }
 }

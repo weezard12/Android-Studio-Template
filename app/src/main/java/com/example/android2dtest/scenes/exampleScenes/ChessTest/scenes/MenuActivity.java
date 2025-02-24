@@ -49,9 +49,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         settingsButton.setOnClickListener(this);
         quitButton.setOnClickListener(this);
 
-        MusicManager musicManager = MusicManager.getInstance(this);
-        musicManager.loadMusic(this, R.raw.background_music);
-        musicManager.playMusic();
     }
 
 

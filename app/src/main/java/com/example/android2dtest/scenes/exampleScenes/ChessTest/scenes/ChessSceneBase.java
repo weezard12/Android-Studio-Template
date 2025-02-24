@@ -29,12 +29,14 @@ public class ChessSceneBase extends GameScene {
             loadPiecesTextures(context);
         }
 
-        debugRenderPhysics = true;
+        //debugRenderPhysics = true;
 
         gameBoard = new GameBoard();
         Shtokfish.init(gameBoard);
 
-/*        GameBoard.setBoardByString(gameBoard.board,
+
+
+        GameBoard.setBoardByString(gameBoard.board,
             "Br,Bk,Bb,Bq,BK,Bb,Bk,Br,"+
                 "Bp,Bp,Bp,Bp,Bp,Bp,Bp,Bp,"+
                 "e,e,e,e,e,e,e,e,"+
@@ -43,18 +45,8 @@ public class ChessSceneBase extends GameScene {
                 "e,e,e,e,e,e,e,e,"+
                 "p,p,p,p,p,p,p,p,"+
                 "r,k,b,q,K,b,k,r,"
-        );*/
-
-        GameBoard.setBoardByString(gameBoard.board,
-                "Br,Bk,Bb,Bq,BK,Bb,Bk,Br,"+
-                        "Bp,Bp,Bp,Bp,Bp,Bp,Bp,Bp,"+
-                        "e,e,e,e,e,e,e,e,"+
-                        "e,e,e,e,e,e,e,e,"+
-                        "e,e,e,e,e,e,e,e,"+
-                        "e,e,e,e,e,e,e,e,"+
-                        "p,p,p,p,e,p,Bp,p,"+
-                        "r,k,b,q,K,e,e,r,"
         );
+
 
         GameEntity boardEntity = new GameEntity("Board");
         boardEntity.addComponent(gameBoard);

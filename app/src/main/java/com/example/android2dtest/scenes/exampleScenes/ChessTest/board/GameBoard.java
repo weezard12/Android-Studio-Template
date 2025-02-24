@@ -66,7 +66,7 @@ public class GameBoard extends RenderableComponent {
         board = new BasePiece[8][8];
 
         tiles = new Tile[8][8];
-        createTiles(false);
+        createTiles(true);
 
     }
 
@@ -88,11 +88,8 @@ public class GameBoard extends RenderableComponent {
                 return;
 
         //if promotion is in process
-        if(PromotionSelection.isPromoting)
-            PromotionSelection.checkForInput();
-
-            //if not promotingt
-            else for (Tile[] row: tiles) {
+        if(!PromotionSelection.isPromoting)
+            for (Tile[] row: tiles) {
                 for (Tile tile: row) {
 
                     if (tile.collisionBounds.contains(inputX, inputY)) {
@@ -140,7 +137,7 @@ public class GameBoard extends RenderableComponent {
 
 
 
-        }
+            }
 
     }
 
@@ -252,8 +249,6 @@ public class GameBoard extends RenderableComponent {
 
         drawBoard(canvas);
         drawPieces(canvas);
-        if(PromotionSelection.isPromoting)
-            PromotionSelection.renderPromotion();
 
     }
 
