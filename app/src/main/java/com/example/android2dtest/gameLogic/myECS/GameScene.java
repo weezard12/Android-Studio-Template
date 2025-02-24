@@ -173,6 +173,15 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         return null;
     }
 
+    public List<GameEntity> getEntitiesByPattern(String pattern){
+        List<GameEntity> rEntities = new ArrayList<>();
+        for (GameEntity entity : entities)
+            if(entity.getName().contains(pattern))
+                rEntities.add(entity);
+
+        return rEntities;
+    }
+
     private void debugRender(Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(Color.RED);

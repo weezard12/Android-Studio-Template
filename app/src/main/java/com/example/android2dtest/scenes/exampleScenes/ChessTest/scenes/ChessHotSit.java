@@ -2,6 +2,8 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
 
 import android.content.Context;
 
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
+
 public class ChessHotSit extends ChessSceneBase{
     /**
      * WARNING when inheriting the class do not use the constructor scene init logic!
@@ -12,5 +14,6 @@ public class ChessHotSit extends ChessSceneBase{
     public ChessHotSit(Context context) {
         super(context);
         gameBoard.isUpdatingInput = true;
+
     }
 }

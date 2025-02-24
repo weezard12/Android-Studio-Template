@@ -1,23 +1,75 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
+import android.graphics.Color;
+import android.graphics.PointF;
+
+import com.example.android2dtest.gameLogic.myECS.GameScene;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.BoxRenderer;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteRenderer;
+import com.example.android2dtest.gameLogic.myECS.components.touchable.ClickableComponent;
+import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
+import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.*;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.PieceType;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessSceneBase;
 
-public class PromotionTile extends Tile{
+import java.util.List;
+
+public class PromotionTile extends GameEntity {
 
     private final PieceType type;
     private final boolean isEnemy;
+    GameBoard gameBoard;
 
-    public PromotionTile(int posX, int posY, GameBoard gameBoard, PieceType type,boolean isEnemy) {
-        super(posX, posY, posX, posY, gameBoard);
+    Tile promotionTile;
+
+    BoxCollider boxCollider;
+    SpriteRenderer spriteRenderer;
+    BoxRenderer boxRenderer;
+    ClickableComponent clickableComponent;
+
+    public PromotionTile(Tile movedToTile, int posY, GameBoard gameBoard, PieceType type, boolean isEnemy){
+        super("Promotion Tile" + posY);
         this.type = type;
         this.isEnemy = isEnemy;
+        this.gameBoard = gameBoard;
+        this.promotionTile = movedToTile;
+        setPosition(movedToTile.positionOnScreen.x,posY * ChessSceneBase.tileSize +ChessSceneBase.tileSize*0.5f);
     }
-    public PromotionTile(int posX, int posY, float boundsX, float boundsY, GameBoard gameBoard,PieceType type,boolean isEnemy){
-        super(posX, posY, boundsX, boundsY, gameBoard);
-        this.type = type;
-        this.isEnemy = isEnemy;
+
+
+    @Override
+    public void attachToScene(GameScene scene) {
+        super.attachToScene(scene);
+        boxCollider = new BoxCollider(ChessSceneBase.tileSize, ChessSceneBase.tileSize);
+        addComponent(boxCollider);
+
+        boxRenderer = new BoxRenderer(ChessSceneBase.tileSize);
+        boxRenderer.paint.setColor(Color.CYAN);
+        addComponent(boxRenderer);
+
+        spriteRenderer = new SpriteRenderer(ChessSceneBase.piecesTextures.get(String.format("%s%s",type.toString().toLowerCase(), isEnemy ? 1 : 0 )));
+        float scaleFactor = ((float) ChessSceneBase.tileSize) / spriteRenderer.getSprite().getTexture().getWidth();
+        spriteRenderer.getSprite().setScale(scaleFactor, scaleFactor);
+        addComponent(spriteRenderer);
+
+        clickableComponent = new ClickableComponent(boxCollider.getCollisionShape());
+        clickableComponent.setOnClickListener(new ClickableComponent.OnClickListener() {
+            @Override
+            public void onClick(float x, float y) {
+                setNewPieceAt(promotionTile.posX, promotionTile.posY);
+
+                PromotionSelection.isPromoting = false;
+                List<GameEntity> entitiesToRemove = scene.getEntitiesByPattern("Promotion Tile");
+                for (GameEntity entity : entitiesToRemove) {
+                    entity.destroy();
+                }
+
+            }
+        });
+        addComponent(clickableComponent);
+
     }
 
     public void setNewPieceAt(int x, int y){
