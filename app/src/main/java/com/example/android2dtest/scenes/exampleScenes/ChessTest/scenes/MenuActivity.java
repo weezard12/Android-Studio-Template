@@ -1,7 +1,9 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -12,6 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.gameLogic.GameLoop;
+import com.example.android2dtest.gameLogic.MusicManager;
+import com.example.android2dtest.gameLogic.myECS.GameScene;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,6 +42,16 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         botButton = (Button) findViewById(R.id.btn_play_vs_bot);
         settingsButton = (Button) findViewById(R.id.btn_settings);
         quitButton = (Button) findViewById(R.id.btn_quit);
+
+        logoButton.setOnClickListener(this);
+        hotSitButton.setOnClickListener(this);
+        botButton.setOnClickListener(this);
+        settingsButton.setOnClickListener(this);
+        quitButton.setOnClickListener(this);
+
+        MusicManager musicManager = MusicManager.getInstance(this);
+        musicManager.loadMusic(this, R.raw.background_music);
+        musicManager.playMusic();
     }
 
 
@@ -46,7 +61,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         else if(hotSitButton.equals(v)){
+        // Hide the status bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        GameScene scene = new ChessHotSit(getApplicationContext());
+        scene.setFullScreen();
+
+
+        setContentView(scene);
+        GameLoop gameLoop = new GameLoop(scene);
+        gameLoop.start();
         }
         else if(botButton.equals(v)){
 
@@ -55,6 +80,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         else if(quitButton.equals(v)){
+            finishAffinity(); // Closes all activities in the task
+            System.exit(0);   // Optional, forces the app to exit
 
         }
     }
