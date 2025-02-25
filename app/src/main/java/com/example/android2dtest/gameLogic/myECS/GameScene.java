@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -80,6 +81,10 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         removeTouchablesAfterUpdate = new ArrayList<>();
         removeEntitiesAfterUpdate = new ArrayList<>();
+    }
+    public GameScene(Context context, AttributeSet attrs) {
+        //super(context, attrs);
+        this(context);
     }
 
     //this method will be called from the game loop.

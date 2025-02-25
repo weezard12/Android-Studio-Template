@@ -6,16 +6,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.example.android2dtest.R;
-import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.MusicManager;
-import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessHotSit;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.MenuActivity;
-import com.example.android2dtest.scenes.exampleScenes.RenderingExample;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -3,7 +3,6 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 
 import com.example.android2dtest.gameLogic.GameLoop;
@@ -21,7 +20,7 @@ import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.QueenPiec
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.RookPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.PieceType;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessSceneBase;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base.ChessSceneBase;
 
 import java.util.ArrayList;
 

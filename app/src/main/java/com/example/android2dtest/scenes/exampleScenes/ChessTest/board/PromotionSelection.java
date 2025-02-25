@@ -2,15 +2,9 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
 
 
-import com.example.android2dtest.gameLogic.GameLoop;
-import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.Shtokfish;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.ShtokfishThread;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.QueenPiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.PieceType;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessSceneBase;
 
 
 public class PromotionSelection {

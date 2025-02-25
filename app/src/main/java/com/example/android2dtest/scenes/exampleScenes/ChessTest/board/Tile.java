@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import com.example.android2dtest.gameLogic.MyDebug;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessSceneBase;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base.ChessSceneBase;
 
 public class Tile {
     GameBoard gameBoard;

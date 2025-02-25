@@ -1,10 +1,12 @@
-package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
+package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.AttributeSet;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.MyDebug;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
@@ -18,7 +20,7 @@ public class ChessSceneBase extends GameScene {
     public static int tileSize = 128;
     public static int boardSize = 1024;
 
-    protected GameBoard gameBoard;
+    public GameBoard gameBoard;
 
     public static HashMap<String, Sprite> piecesTextures;
 
@@ -47,11 +49,19 @@ public class ChessSceneBase extends GameScene {
                 "r,k,b,q,K,b,k,r,"
         );
 
+        // starts the game loop
+        GameLoop gameLoop = new GameLoop(this);
+        gameLoop.start();
+
 
         GameEntity boardEntity = new GameEntity("Board");
         boardEntity.addComponent(gameBoard);
 
         addEntity(boardEntity);
+    }
+
+    public ChessSceneBase(Context context, AttributeSet attrs) {
+        this(context);
     }
 
     @Override

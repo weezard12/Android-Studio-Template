@@ -1,7 +1,6 @@
 package com.example.android2dtest.scenes.exampleScenes.ChessTest.board;
 
 import android.graphics.Color;
-import android.graphics.PointF;
 
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.BoxRenderer;
@@ -10,9 +9,8 @@ import com.example.android2dtest.gameLogic.myECS.components.touchable.ClickableC
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.*;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.PieceType;
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.ChessSceneBase;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base.ChessSceneBase;
 
 import java.util.List;
 

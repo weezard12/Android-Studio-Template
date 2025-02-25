@@ -1,8 +1,7 @@
-package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
+package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base;
 
 import android.content.Context;
-
-import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
+import android.util.AttributeSet;
 
 public class ChessHotSit extends ChessSceneBase{
     /**
@@ -14,6 +13,8 @@ public class ChessHotSit extends ChessSceneBase{
     public ChessHotSit(Context context) {
         super(context);
         gameBoard.isUpdatingInput = true;
-
+    }
+    public ChessHotSit(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 }
