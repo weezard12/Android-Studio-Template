@@ -10,7 +10,7 @@
     tools:context=".scenes.exampleScenes.ChessTest.scenes.MenuActivity">
 
     <!-- Background Pattern -->
-    <com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.PatternView
+    <com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.PatternView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

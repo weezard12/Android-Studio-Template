@@ -7,4 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".scenes.exampleScenes.ChessTest.scenes.ChessBotActivity">
 
+    <com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base.ChessVsBot
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+<com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.ChessSideView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+    <!-- Chess Bot Label -->
+    <TextView
+        android:id="@+id/chessTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player VS Bot"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,25 +60,15 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         else if(hotSitButton.equals(v)){
         // Hide the status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-/*        GameScene scene = new ChessHotSit(getApplicationContext());
-        scene.setFullScreen();
-
-
-        setContentView(scene);
-        GameLoop gameLoop = new GameLoop(scene);
-        gameLoop.start();*/
             Intent intent = new Intent(this, ChessHotSitActivity.class);
             startActivity(intent);
         }
         else if(botButton.equals(v)){
-/*            GameScene scene = new ChessVsBot(getApplicationContext());
-            scene.setFullScreen();
 
-            setContentView(scene);
-            GameLoop gameLoop = new GameLoop(scene);
-            gameLoop.start();*/
+            Intent intent = new Intent(this, ChessBotActivity.class);
+            startActivity(intent);
         }
         else if(settingsButton.equals(v)){
             Intent intent = new Intent(this, SettingsActivity.class);

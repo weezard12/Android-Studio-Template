@@ -1,4 +1,4 @@
-package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
+package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;

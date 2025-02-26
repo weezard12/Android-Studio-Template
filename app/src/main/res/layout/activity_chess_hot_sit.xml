@@ -17,7 +17,7 @@
         android:id="@+id/chessTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chess 1V1"
+        android:text="Chess Player VS Player"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
@@ -25,24 +25,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <!-- Rotate Board Button -->
-    <Button
-        android:id="@+id/rotateBoardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rotate"
-        app:layout_constraintBottom_toTopOf="@id/backButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <!-- Back Button -->
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+    <com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.ChessSideView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

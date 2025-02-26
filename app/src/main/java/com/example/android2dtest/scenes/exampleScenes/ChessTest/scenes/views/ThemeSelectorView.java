@@ -1,19 +1,16 @@
-package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
+package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.android2dtest.R;
-import com.example.android2dtest.gameLogic.MyDebug;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.BoardColors;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.SettingsActivity;
 
 public class ThemeSelectorView extends LinearLayout {
 

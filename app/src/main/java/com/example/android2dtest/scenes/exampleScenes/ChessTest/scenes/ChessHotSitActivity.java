@@ -16,11 +16,7 @@ import com.example.android2dtest.gameLogic.MyDebug;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base.ChessHotSit;
 
-public class ChessHotSitActivity extends AppCompatActivity implements View.OnClickListener {
-
-    Button backButton;
-    Button rotateButton;
-
+public class ChessHotSitActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +29,6 @@ public class ChessHotSitActivity extends AppCompatActivity implements View.OnCli
             return insets;
         });
 
-        backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(this);
-
-        rotateButton = findViewById(R.id.rotateBoardButton);
-        rotateButton.setOnClickListener(this);
-
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v.equals(backButton)){
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
-        }
-        else if(v.equals(rotateButton)){
-            GameBoard.currentActiveBoard.isBlackRotationBoard = !GameBoard.currentActiveBoard.isBlackRotationBoard;
-            GameBoard.currentActiveBoard.createTiles(GameBoard.currentActiveBoard.isBlackRotationBoard);
-        }
-
-    }
 }

@@ -14,9 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.android2dtest.R;
-import com.example.android2dtest.main.MainActivity;
 import com.example.android2dtest.main.MyUtils;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.BoardColors;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.ThemeSelectorView;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 

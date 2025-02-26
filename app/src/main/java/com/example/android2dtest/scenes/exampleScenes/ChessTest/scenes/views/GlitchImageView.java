@@ -1,4 +1,4 @@
-package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
+package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,9 +11,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Matrix;
-import android.graphics.LinearGradient;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 
 import java.util.Random;
 
