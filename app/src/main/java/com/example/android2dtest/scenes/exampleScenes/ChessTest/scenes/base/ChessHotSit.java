@@ -3,6 +3,8 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.example.android2dtest.gameLogic.MyDebug;
+
 public class ChessHotSit extends ChessSceneBase{
     /**
      * WARNING when inheriting the class do not use the constructor scene init logic!
@@ -15,6 +17,6 @@ public class ChessHotSit extends ChessSceneBase{
         gameBoard.isUpdatingInput = true;
     }
     public ChessHotSit(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context);
     }
 }

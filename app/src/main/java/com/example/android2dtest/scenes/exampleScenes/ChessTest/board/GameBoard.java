@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class GameBoard extends RenderableComponent {
     public boolean isBlackTurn = false;
-    public boolean isBlackRotationBoard = false;
+    public boolean isBlackRotationBoard = true;
 
     public boolean isUpdatingInput = false;
 
@@ -60,12 +60,16 @@ public class GameBoard extends RenderableComponent {
     //Debug
     public boolean isFreeMove = true;
 
+    public static GameBoard currentActiveBoard;
+
     public GameBoard(){
+        //sets up an instance
+        currentActiveBoard = this;
 
         board = new BasePiece[8][8];
 
         tiles = new Tile[8][8];
-        createTiles(true);
+        createTiles(isBlackRotationBoard);
 
     }
 
