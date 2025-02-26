@@ -29,7 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Scaled Down ImageButtons (1/3 original size) -->
     <ImageButton
         android:id="@+id/whitePieces"
         android:layout_width="0dp"

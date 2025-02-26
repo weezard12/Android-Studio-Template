@@ -38,6 +38,7 @@ public class ChessBotActivity extends AppCompatActivity implements View.OnClickL
         });
 
         whitePieces = findViewById(R.id.whitePieces);
+        whitePieces.setBackgroundColor(Color.CYAN);
         blackPieces = findViewById(R.id.blackPieces);
         startButton = findViewById(R.id.startButton);
 
