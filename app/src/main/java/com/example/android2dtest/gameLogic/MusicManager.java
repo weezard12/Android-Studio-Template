@@ -17,6 +17,7 @@ public class MusicManager {
     private float effectsVolume = 1.0f; // Volume for effects
 
     private boolean isMusicPlaying = false;
+    private boolean stopMusicOnMinimize = true; // New flag for stopping music when minimized
 
     private MusicManager(Context context) {
         // Initialize SoundPool for effects
@@ -119,5 +120,29 @@ public class MusicManager {
         soundPool.release();
         soundPool = null;
         soundMap.clear();
+    }
+
+    /** 🔄 Handle app minimize behavior */
+    public void onAppMinimized() {
+        if (stopMusicOnMinimize) {
+            pauseMusic();
+        }
+    }
+
+    /** 🔄 Handle app resume behavior */
+    public void onAppResumed() {
+        if (stopMusicOnMinimize) {
+            resumeMusic();
+        }
+    }
+
+    /** ✅ Enable or disable stop music on minimize */
+    public void setStopMusicOnMinimize(boolean stopMusic) {
+        this.stopMusicOnMinimize = stopMusic;
+    }
+
+    /** ℹ️ Check if stop music on minimize is enabled */
+    public boolean isStopMusicOnMinimize() {
+        return stopMusicOnMinimize;
     }
 }
