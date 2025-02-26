@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,14 +8,14 @@
     android:layout_height="match_parent"
     tools:context=".scenes.exampleScenes.ChessTest.scenes.ChessBotActivity">
 
+    <!-- Chess Game Layout -->
     <com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base.ChessVsBot
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-
-<com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.ChessSideView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    <com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.ChessSideView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <!-- Chess Bot Label -->
     <TextView
@@ -26,7 +27,50 @@
         android:textStyle="bold"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Scaled Down ImageButtons (1/3 original size) -->
+    <ImageButton
+        android:id="@+id/whitePieces"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="White King"
+        android:src="@raw/king0"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.08"
+        app:layout_constraintEnd_toStartOf="@id/blackPieces"
+        app:layout_constraintTop_toBottomOf="@id/chessTitle" />
+
+    <ImageButton
+        android:id="@+id/blackPieces"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Black King"
+        android:src="@raw/king1"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.08"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/chessTitle" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/blackPieces" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

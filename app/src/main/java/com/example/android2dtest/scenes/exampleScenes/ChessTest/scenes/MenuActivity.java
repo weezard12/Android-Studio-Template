@@ -3,6 +3,7 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -29,6 +30,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -78,5 +84,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             finishAffinity(); // Closes all activities in the task
             System.exit(0);   // Optional, forces the app to exit
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicManager.getInstance(this).onAppMinimized();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicManager.getInstance(this).onAppResumed();
     }
 }

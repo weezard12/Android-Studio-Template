@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.gameLogic.MusicManager;
 
 public class ChessActivity extends AppCompatActivity {
 
@@ -22,5 +23,18 @@ public class ChessActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicManager.getInstance(this).onAppMinimized();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicManager.getInstance(this).onAppResumed();
     }
 }

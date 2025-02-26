@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -14,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.gameLogic.MusicManager;
 import com.example.android2dtest.main.MyUtils;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.BoardColors;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.ThemeSelectorView;
@@ -21,12 +24,17 @@ import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.The
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     LinearLayout themesLayout;
-
     Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -72,9 +80,21 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.equals(backButton)){
-            Intent intent = new Intent(        this, MenuActivity.class);
+            Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicManager.getInstance(this).onAppMinimized();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicManager.getInstance(this).onAppResumed();
     }
 }
