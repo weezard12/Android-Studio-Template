@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@raw/home_screen_bkg"
     tools:context=".scenes.exampleScenes.ChessTest.scenes.ChessHotSitActivity">
 
     <com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base.ChessHotSit

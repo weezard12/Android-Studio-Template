@@ -3,7 +3,12 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.base;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+
+import androidx.core.content.ContextCompat;
 
 import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.GameLoop;
@@ -14,6 +19,7 @@ import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.Shtokfish;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 public class ChessSceneBase extends GameScene {
@@ -26,6 +32,12 @@ public class ChessSceneBase extends GameScene {
 
     public ChessSceneBase(Context context) {
         super(context);
+
+        InputStream is = getResources().openRawResource(R.raw.home_screen_bkg);
+        Bitmap bitmap = BitmapFactory.decodeStream(is);
+        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+        setBackground(drawable);
+        //setBackgroundImage(BitmapFactory.decodeResource(context.getResources(), R.raw.home_screen_bkg));
 
         if(piecesTextures == null){
             loadPiecesTextures(context);
