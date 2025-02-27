@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 
 public class BishopPiece extends BasePiece {
-    private Point point1 = new Point(-1,-1);
-    private Point point2 = new Point(-1,-1);
+    private final Point point1 = new Point(-1,-1);
+    private final Point point2 = new Point(-1,-1);
 
     public BishopPiece(boolean isEnemy, BasePiece[][] board) {
         super(isEnemy, board);
