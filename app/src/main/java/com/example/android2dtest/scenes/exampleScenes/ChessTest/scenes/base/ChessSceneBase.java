@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -33,11 +34,7 @@ public class ChessSceneBase extends GameScene {
     public ChessSceneBase(Context context) {
         super(context);
 
-        InputStream is = getResources().openRawResource(R.raw.home_screen_bkg);
-        Bitmap bitmap = BitmapFactory.decodeStream(is);
-        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-        setBackground(drawable);
-        //setBackgroundImage(BitmapFactory.decodeResource(context.getResources(), R.raw.home_screen_bkg));
+        setTransparentBackground();
 
         if(piecesTextures == null){
             loadPiecesTextures(context);
