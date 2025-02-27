@@ -35,6 +35,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     private static final Point screenCenter = new Point();
     private static final Point screenEnd = new Point();
     public boolean debugRenderPhysics = false;
+    public boolean debugRenderScene = false;
+
 
     public Bitmap getBackgroundImage() {
         return backgroundImage;
@@ -142,7 +144,9 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         if(debugRenderPhysics)
             PhysicsSystem.debugRenderPhysics(canvas);
 
-        debugRender(canvas);
+
+        if(debugRenderScene)
+            debugRender(canvas);
     }
 
     public void update(float delta){
