@@ -10,6 +10,7 @@ import android.view.Window;
 import com.example.android2dtest.R;
 import com.example.android2dtest.gameLogic.MusicManager;
 import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.LoadingScreenActivity;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.MenuActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoadingScreenActivity.class);
         startActivity(intent);
 
-        MusicManager musicManager = MusicManager.getInstance(this);
+/*        MusicManager musicManager = MusicManager.getInstance(this);
         musicManager.loadMusic(this, R.raw.background_music);
-        musicManager.playMusic();
+        musicManager.playMusic();*/
     }
 }

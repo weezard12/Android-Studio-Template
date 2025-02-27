@@ -13,25 +13,28 @@
         android:theme="@style/Theme.Android2DTest"
         tools:targetApi="31">
         <activity
+            android:name=".scenes.exampleScenes.ChessTest.scenes.LoadingScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".scenes.exampleScenes.ChessTest.scenes.ChessHotSitActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".scenes.exampleScenes.ChessTest.scenes.ChessBotActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".scenes.exampleScenes.ChessTest.scenes.ChessActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".scenes.exampleScenes.ChessTest.scenes.SettingsActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".scenes.exampleScenes.ChessTest.scenes.MenuActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".main.MenuActivity"
             android:exported="false" />
