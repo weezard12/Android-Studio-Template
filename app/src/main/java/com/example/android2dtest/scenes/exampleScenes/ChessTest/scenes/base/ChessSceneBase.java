@@ -19,6 +19,7 @@ import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.Shtokfish;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.EvalBar;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -67,6 +68,9 @@ public class ChessSceneBase extends GameScene {
         boardEntity.addComponent(gameBoard);
 
         addEntity(boardEntity);
+
+        EvalBar evalBar = new EvalBar("Eval Bar");
+        addEntity(evalBar);
     }
 
     public ChessSceneBase(Context context, AttributeSet attrs) {
