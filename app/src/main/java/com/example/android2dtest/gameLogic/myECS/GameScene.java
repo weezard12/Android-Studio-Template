@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -223,6 +224,12 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
+    }
+
+    public void setTransparentBackground(){
+        setZOrderOnTop(true); // Allow the SurfaceView to be rendered on top
+        getHolder().setFormat(PixelFormat.TRANSLUCENT); // Enable transparency
+        setBackgroundColor(Color.TRANSPARENT);
     }
 }
 
