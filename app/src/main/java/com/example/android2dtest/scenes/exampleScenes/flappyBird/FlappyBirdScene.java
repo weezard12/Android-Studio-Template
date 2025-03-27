@@ -36,9 +36,9 @@ public class FlappyBirdScene extends GameScene {
     }
 
     @Override
-    public void update(float delta) {
-        super.update(delta);
-        pipeSpawnTimer += delta;
+    public void update() {
+        super.update();
+        pipeSpawnTimer += deltaTime;
         checkForLoose();
     }
 

@@ -310,7 +310,7 @@ public class GameBoard extends RenderableComponent {
     protected void getPieceInterpolation(float startX, float startY, float endX, float endY){
         interpolation.x = (int)Interpolation.pow2.apply(startX, endX, elapsedTime);
         interpolation.y = (int)Interpolation.pow2.apply(startY, endY, elapsedTime);
-        elapsedTime += GameLoop.deltaTime * 5;
+        elapsedTime += entity.scene.deltaTime * 5;
     }
     //endregion
     //region Setup Board

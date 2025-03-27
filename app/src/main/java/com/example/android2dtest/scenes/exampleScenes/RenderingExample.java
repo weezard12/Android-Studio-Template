@@ -49,10 +49,10 @@ public class RenderingExample extends GameScene {
     }
 
     @Override
-    public void update(float delta) {
-        super.update(delta);
-        textureEntity.getTransform().rotation += 1 * GameLoop.deltaTime;
-        textureEntity.getTransform().scale += 1 * GameLoop.deltaTime;
+    public void update() {
+        super.update();
+        textureEntity.getTransform().rotation += 1 * deltaTime;
+        textureEntity.getTransform().scale += 1 * deltaTime;
         //log("delta"+GameLoop.deltaTime);
     }
 }
