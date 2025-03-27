@@ -37,6 +37,8 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
     public boolean debugRenderPhysics = false;
     public boolean debugRenderScene = false;
 
+    public int fps;
+    public float deltaTime = 0;
 
     public Bitmap getBackgroundImage() {
         return backgroundImage;
@@ -138,7 +140,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
 
         //render the entities
         for (int i = 0; i < entities.size(); i++)
-            entities.get(i).render(GameLoop.deltaTime, canvas);
+            entities.get(i).render(deltaTime, canvas);
 
         //draw physics debug
         if(debugRenderPhysics)
@@ -149,7 +151,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
             debugRender(canvas);
     }
 
-    public void update(float delta){
+    public void update(){
 
         for (GameEntity entityToRemove : removeEntitiesAfterUpdate) {
             entities.remove(entityToRemove);
@@ -157,10 +159,10 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
 
         //update all entities
         for (int i = 0; i < entities.size(); i++)
-            entities.get(i).update(delta);
+            entities.get(i).update(deltaTime);
 
         //updates physics
-        PhysicsSystem.update(delta);
+        PhysicsSystem.update(deltaTime);
     }
 
     public void addEntity(GameEntity entity){
@@ -196,7 +198,7 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         paint.setTextSize(80); // Adjust text size as needed
-        canvas.drawText("FPS: " + GameLoop.fps, 50, 100, paint); // Draw FPS at top-left
+        canvas.drawText("FPS: " + fps, 50, 100, paint); // Draw FPS at top-left
         canvas.drawText("Entity Count: " + entities.size(), 50, 200, paint); // Draw FPS at top-left
     }
 
