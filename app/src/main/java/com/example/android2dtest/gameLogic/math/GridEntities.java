@@ -2,6 +2,7 @@ package com.example.android2dtest.gameLogic.math;
 
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.util.Log;
 
 import com.example.android2dtest.gameLogic.myECS.components.GameComponent;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
@@ -17,6 +18,7 @@ public class GridEntities extends Grid<GameEntity> {
     private final int columnDistance;
     private final List<GameEntity> entityList;
     private PointF position; // Center of the grid
+    private OnClickListener onClickListener;
 
     public GridEntities(int rows, int columns, int rowDistance, int columnDistance) {
         super(rows, columns, rowDistance, columnDistance);
@@ -93,16 +95,25 @@ public class GridEntities extends Grid<GameEntity> {
      * Aligns all entities based on the grid's center position.
      */
     public void realignEntities() {
+        // Calculate total width and height of the grid
+        float gridWidth = grid[0].length * columnDistance;
+        float gridHeight = grid.length * rowDistance;
+
+        // Compute the top-left starting point so the grid is centered around 'position'
+        float startX = position.x - (gridWidth / 2);
+        float startY = position.y - (gridHeight / 2);
+
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
                 if (grid[row][col] != null) {
-                    float newX = position.x + col * columnDistance;
-                    float newY = position.y + row * rowDistance;
+                    float newX = startX + col * columnDistance;
+                    float newY = startY + row * rowDistance;
                     grid[row][col].setPosition(newX, newY);
                 }
             }
         }
     }
+
 
     public Point getClosestEntityIndex(Point point) {
         Point closestPointIdx = new Point(0, 0);
@@ -125,19 +136,35 @@ public class GridEntities extends Grid<GameEntity> {
         return closestPointIdx;
     }
 
+    public void setGridClickable() {
+        setGridClickable(columnDistance, rowDistance);
+    }
     public void setGridClickable(int boxWidth, int boxHeight) {
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
+
                 GameEntity entity = grid[row][col];
                 if (entity != null) {
                     BoxCollider collider = new BoxCollider(boxWidth, boxHeight);
                     ClickableComponent clickable = new ClickableComponent(collider);
+
                     entity.addComponent(collider);
                     entity.addComponent(clickable);
+
+                    final int finalRow = row;
+                    final int finalCol = col;
+                    clickable.setOnClickListener(new ClickableComponent.OnClickListener() {
+                        @Override
+                        public void onClick(float x, float y) {
+                            onClickListener.onClick(finalRow, finalCol);
+                        }
+                    });
                 }
             }
         }
     }
+
+
 
     public void addComponentToAll(GameComponent component) {
         for (int row = 0; row < grid.length; row++) {
@@ -156,5 +183,14 @@ public class GridEntities extends Grid<GameEntity> {
 
     private double calculateDistance(Point p1, Point p2) {
         return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+    }
+
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public interface OnClickListener {
+        void onClick(int row, int column);
     }
 }
