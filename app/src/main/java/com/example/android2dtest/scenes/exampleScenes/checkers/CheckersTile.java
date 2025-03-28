@@ -1,6 +1,7 @@
 package com.example.android2dtest.scenes.exampleScenes.checkers;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
 
@@ -21,6 +22,7 @@ public class CheckersTile extends GameEntity {
     }
 
     private CircleRenderer pieceRenderer;
+    private CircleRenderer kingRenderer;
 
     public CheckersTile(int x, int y, GridEntities gridEntities) {
         this.positionOnBoard = new Point(x,y);
@@ -54,12 +56,20 @@ public class CheckersTile extends GameEntity {
         pieceRenderer.setEnabled(false);
 
         addComponent(pieceRenderer);
+
+        kingRenderer = new CircleRenderer((int)(board.getRowDistance() / 4.4));
+        kingRenderer.setEnabled(false);
+        kingRenderer.paint.setStyle(Paint.Style.STROKE);
+        kingRenderer.paint.setStrokeWidth(10);
+        kingRenderer.paint.setColor(Color.rgb(255,215,0));
+        addComponent(kingRenderer);
     }
 
     public void setTileType(TileType type){
         this.type = type;
 
         pieceRenderer.setEnabled(false);
+        kingRenderer.setEnabled(false);
 
         switch (type){
             case EMPTY:
@@ -74,9 +84,21 @@ public class CheckersTile extends GameEntity {
                 pieceRenderer.paint.setColor(Color.WHITE);
                 pieceRenderer.setEnabled(true);
                 break;
+
             case HIGHLIGHT:
                 pieceRenderer.paint.setColor(Color.CYAN);
                 pieceRenderer.setEnabled(true);
+                break;
+
+            case BLACK_KING:
+                pieceRenderer.paint.setColor(Color.BLACK);
+                pieceRenderer.setEnabled(true);
+                kingRenderer.setEnabled(true);
+                break;
+            case WHITE_KING:
+                pieceRenderer.paint.setColor(Color.WHITE);
+                pieceRenderer.setEnabled(true);
+                kingRenderer.setEnabled(true);
                 break;
         }
 

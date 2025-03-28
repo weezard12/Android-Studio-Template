@@ -13,7 +13,6 @@ public class CheckersScene extends GameScene {
 
     private GridEntities board;
 
-    private Point lastClickedTile;
     private boolean whiteToMove = true;
 
     ArrayList<Move> possibleMoves = new ArrayList<>();
@@ -26,8 +25,8 @@ public class CheckersScene extends GameScene {
     public void start() {
         super.start();
 
-        debugRenderPhysics = true;
-        debugRenderScene = true;
+        //debugRenderPhysics = true;
+        //debugRenderScene = true;
 
         board = new GridEntities(8, 8, 110, 110);
 
@@ -63,7 +62,20 @@ public class CheckersScene extends GameScene {
                 else if(((CheckersTile)board.getGrid()[row][column]).getType() == TileType.HIGHLIGHT){
                     for (Move move : possibleMoves) {
                         if(move.movingTo.x == column && move.movingTo.y == row){
+
+                            if(move.movingTo.y == 7){
+                                if(move.position[row][column] == TileType.BLACK){
+                                    move.position[row][column] = TileType.BLACK_KING;
+                                }
+                            }
+                            else if(move.movingTo.y == 0){
+                                if(move.position[row][column] == TileType.WHITE){
+                                    move.position[row][column] = TileType.WHITE_KING;
+                                }
+                            }
+
                             setBoardFromMove(move);
+                            break;
                         }
                     }
                     clearBoardFromHighlights();
@@ -129,7 +141,6 @@ public class CheckersScene extends GameScene {
 
         // If captures exist, only keep capturing moves (mandatory jumps rule in checkers)
         if (!captures.isEmpty()) {
-            possibleMoves.clear();
             possibleMoves.addAll(captures);
         }
     }
