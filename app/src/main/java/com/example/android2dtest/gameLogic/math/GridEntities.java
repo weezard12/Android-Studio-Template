@@ -42,6 +42,14 @@ public class GridEntities extends Grid<GameEntity> {
         return new PointF(position.x, position.y);
     }
 
+    public int getRowDistance() {
+        return rowDistance;
+    }
+
+    public int getColumnDistance() {
+        return columnDistance;
+    }
+
     @Override
     public void updateGrid(int newRowDistance, int newColumnDistance) {
         for (int row = 0; row < grid.length; row++) {
