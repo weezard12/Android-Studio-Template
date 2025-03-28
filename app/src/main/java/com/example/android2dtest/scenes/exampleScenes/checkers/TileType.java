@@ -5,7 +5,8 @@ public enum TileType {
     BLACK('b'),
     WHITE('w'),
     BLACK_KING('B'),
-    WHITE_KING('W');
+    WHITE_KING('W'),
+    HIGHLIGHT('h');
 
     public final char typeAsLetter;
 

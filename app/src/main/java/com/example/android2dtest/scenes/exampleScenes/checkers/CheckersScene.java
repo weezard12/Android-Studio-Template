@@ -1,17 +1,22 @@
 package com.example.android2dtest.scenes.exampleScenes.checkers;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.util.Log;
 
-import com.example.android2dtest.gameLogic.GameLoop;
 import com.example.android2dtest.gameLogic.math.GridEntities;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
-import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
-import com.example.android2dtest.gameLogic.myPhysics.PhysicsSystem;
+
+import java.util.ArrayList;
 
 public class CheckersScene extends GameScene {
 
-    private GridEntities entityGrid;
+    private GridEntities board;
+
+    private Point lastClickedTile;
+    private boolean whiteToMove = true;
+
+    ArrayList<Move> possibleMoves = new ArrayList<>();
 
     public CheckersScene(Context context) {
         super(context);
@@ -24,17 +29,17 @@ public class CheckersScene extends GameScene {
         debugRenderPhysics = true;
         debugRenderScene = true;
 
-        entityGrid = new GridEntities(8, 8, 110, 110);
+        board = new GridEntities(8, 8, 110, 110);
 
-        for (int y = 0; y < entityGrid.getGrid().length; y++) {
-            for (int x = 0; x < entityGrid.getGrid()[y].length; x++) {
-                entityGrid.getGrid()[y][x] = new CheckersTile(x, y, entityGrid);
-                addEntity(entityGrid.getGrid()[y][x]);
+        for (int y = 0; y < board.getGrid().length; y++) {
+            for (int x = 0; x < board.getGrid()[y].length; x++) {
+                board.getGrid()[y][x] = new CheckersTile(x, y, board);
+                addEntity(board.getGrid()[y][x]);
             }
         }
 
-        entityGrid.setPosition(getSurfaceCenter().x, getSurfaceCenter().y);
-        entityGrid.setGridClickable();
+        board.setPosition(getSurfaceCenter().x, getSurfaceCenter().y);
+        board.setGridClickable();
 
         setupBoardFromString(
                 " b b b b" +
@@ -47,22 +52,121 @@ public class CheckersScene extends GameScene {
                 "w w w w "
         );
 
-        entityGrid.setOnClickListener(new GridEntities.OnClickListener() {
+        board.setOnClickListener(new GridEntities.OnClickListener() {
             @Override
             public void onClick(int row, int column) {
                 Log.i("Board", "Clicked: " + row + " " + column);
+
+                if(((CheckersTile)board.getGrid()[row][column]).getType() == TileType.EMPTY){
+                    //setTileOnBoard(column, row+1, TileType.HIGHLIGHT);
+                }
+                else if(((CheckersTile)board.getGrid()[row][column]).getType() == TileType.HIGHLIGHT){
+                    for (Move move : possibleMoves) {
+                        if(move.movingTo.x == column && move.movingTo.y == row){
+                            setBoardFromMove(move);
+                        }
+                    }
+                    clearBoardFromHighlights();
+                }
+                else{
+                    clearBoardFromHighlights();
+                    getMovesForPiece(row, column,new Move(column, row, boardToArray()));
+                }
+
+
             }
         });
+    }
+
+    private void setBoardFromMove(Move move) {
+        for (int y = 0; y < move.position.length; y++) {
+            for (int x = 0; x < move.position[y].length; x++) {
+                setTileOnBoard(x,y,move.position[y][x]);
+            }
+        }
     }
 
     private void setupBoardFromString(String boardString) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 char tileTypeChar = boardString.charAt(x + (y * 8));
-                CheckersTile tile = (CheckersTile) entityGrid.getGrid()[y][x];
+                CheckersTile tile = (CheckersTile) board.getGrid()[y][x];
                 tile.setTileType(TileType.fromChar(tileTypeChar));
             }
         }
     }
 
+    private void setTileOnBoard(int x, int y, TileType type){
+        ((CheckersTile)board.getGrid()[y][x]).setTileType(type);
+    }
+
+    private TileType getTileOnBoard(int x, int y){
+        return ((CheckersTile)board.getGrid()[y][x]).getType();
+    }
+    private TileType getTileOnBoard(int x, int y, Move move){
+        return move.position[y][x];
+    }
+
+    //region Game Logic
+    private void getMovesForPiece(int row, int column, Move currentMove) {
+
+        CheckersTile selectedTile = (CheckersTile) board.getGrid()[row][column];
+        TileType pieceType = selectedTile.getType();
+
+        if (pieceType == TileType.EMPTY) return; // Ignore empty tiles
+
+        boolean isWhite = (pieceType == TileType.WHITE);
+
+        int direction = isWhite ? -1 : 1; // White moves up (-1), Black moves down (+1)
+
+        // Possible move directions (diagonals)
+        int[][] moveOffsets = {
+                {direction, -1}, // Diagonal left
+                {direction, 1}   // Diagonal right
+        };
+
+        tryMove(column,row,new Point(1, direction),currentMove);
+        tryMove(column,row,new Point(-1, direction),currentMove);
+    }
+
+    private void tryMove(int column, int row, Point direction, Move currentMove) {
+        int newColumn = column + direction.x;
+        int newRow = row + direction.y;
+
+        if (isWithinBounds(newRow, newColumn) && getTileOnBoard(newColumn, newRow, currentMove) == TileType.EMPTY) {
+            Move move = new Move(newColumn, newRow, boardToArray());
+            move.position[newRow][newColumn] = getTileOnBoard(column, row, currentMove);
+            move.position[row][column] = TileType.EMPTY;
+            possibleMoves.add(move);
+            setTileOnBoard(newColumn, newRow, TileType.HIGHLIGHT);
+        }
+    }
+
+    // Helper method to check board bounds
+    private boolean isWithinBounds(int row, int col) {
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+
+    // Convert board state to TileType[][] for Move storage
+    private TileType[][] boardToArray() {
+        TileType[][] snapshot = new TileType[8][8];
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                snapshot[y][x] = ((CheckersTile) board.getGrid()[y][x]).getType();
+            }
+        }
+        return snapshot;
+    }
+
+    private void clearBoardFromHighlights(){
+        possibleMoves.clear();
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if(((CheckersTile) board.getGrid()[y][x]).getType() == TileType.HIGHLIGHT)
+                    ((CheckersTile) board.getGrid()[y][x]).setTileType(TileType.EMPTY);
+            }
+        }
+    }
+
+    //endregion
 }

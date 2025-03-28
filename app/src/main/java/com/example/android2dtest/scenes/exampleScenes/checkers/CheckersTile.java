@@ -14,7 +14,11 @@ public class CheckersTile extends GameEntity {
 
     private final Point positionOnBoard;
     private final GridEntities board;
+
     private TileType type;
+    public TileType getType() {
+        return type;
+    }
 
     private CircleRenderer pieceRenderer;
 
@@ -68,6 +72,10 @@ public class CheckersTile extends GameEntity {
 
             case WHITE:
                 pieceRenderer.paint.setColor(Color.WHITE);
+                pieceRenderer.setEnabled(true);
+                break;
+            case HIGHLIGHT:
+                pieceRenderer.paint.setColor(Color.CYAN);
                 pieceRenderer.setEnabled(true);
                 break;
         }
