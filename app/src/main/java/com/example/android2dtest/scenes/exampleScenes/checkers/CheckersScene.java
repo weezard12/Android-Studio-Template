@@ -109,25 +109,31 @@ public class CheckersScene extends GameScene {
 
     //region Game Logic
     private void getMovesForPiece(int row, int column, Move currentMove) {
-
         CheckersTile selectedTile = (CheckersTile) board.getGrid()[row][column];
         TileType pieceType = selectedTile.getType();
 
-        if (pieceType == TileType.EMPTY) return; // Ignore empty tiles
+        if (pieceType == TileType.EMPTY) return;
 
         boolean isWhite = (pieceType == TileType.WHITE);
-
         int direction = isWhite ? -1 : 1; // White moves up (-1), Black moves down (+1)
 
-        // Possible move directions (diagonals)
-        int[][] moveOffsets = {
-                {direction, -1}, // Diagonal left
-                {direction, 1}   // Diagonal right
-        };
+        ArrayList<Move> captures = new ArrayList<>();
 
-        tryMove(column,row,new Point(1, direction),currentMove);
-        tryMove(column,row,new Point(-1, direction),currentMove);
+        // Try normal moves
+        tryMove(column, row, new Point(1, direction), currentMove);
+        tryMove(column, row, new Point(-1, direction), currentMove);
+
+        // Try captures
+        tryCapture(column, row, new Point(1, direction), currentMove, captures);
+        tryCapture(column, row, new Point(-1, direction), currentMove, captures);
+
+        // If captures exist, only keep capturing moves (mandatory jumps rule in checkers)
+        if (!captures.isEmpty()) {
+            possibleMoves.clear();
+            possibleMoves.addAll(captures);
+        }
     }
+
 
     private void tryMove(int column, int row, Point direction, Move currentMove) {
         int newColumn = column + direction.x;
@@ -141,6 +147,44 @@ public class CheckersScene extends GameScene {
             setTileOnBoard(newColumn, newRow, TileType.HIGHLIGHT);
         }
     }
+
+    private void tryCapture(int column, int row, Point direction, Move currentMove, ArrayList<Move> captures) {
+        int midColumn = column + direction.x;
+        int midRow = row + direction.y;
+        int newColumn = column + 2 * direction.x;
+        int newRow = row + 2 * direction.y;
+
+        if (isWithinBounds(newRow, newColumn) &&
+                getTileOnBoard(midColumn, midRow, currentMove) != TileType.EMPTY &&
+                getTileOnBoard(midColumn, midRow, currentMove) != getTileOnBoard(column, row, currentMove) &&
+                getTileOnBoard(newColumn, newRow, currentMove) == TileType.EMPTY) {
+
+            // Modify the current move instead of creating a new one
+            currentMove.position[newRow][newColumn] = getTileOnBoard(column, row, currentMove); // Move piece
+            currentMove.position[row][column] = TileType.EMPTY; // Clear old position
+            currentMove.position[midRow][midColumn] = TileType.EMPTY; // Remove captured piece
+
+            Move newMove = new Move(newColumn, newRow, deepCopyBoard(currentMove.position)); // Copy new state
+
+            captures.add(newMove);
+            possibleMoves.add(newMove);
+            setTileOnBoard(newColumn, newRow, TileType.HIGHLIGHT);
+
+            // Recursively check for more jumps, passing the updated move
+            tryCapture(newColumn, newRow, new Point(1, direction.y), newMove, captures);
+            tryCapture(newColumn, newRow, new Point(-1, direction.y), newMove, captures);
+        }
+    }
+
+    private TileType[][] deepCopyBoard(TileType[][] original) {
+        TileType[][] copy = new TileType[8][8];
+        for (int y = 0; y < 8; y++) {
+            System.arraycopy(original[y], 0, copy[y], 0, 8);
+        }
+        return copy;
+    }
+
+
 
     // Helper method to check board bounds
     private boolean isWithinBounds(int row, int col) {
