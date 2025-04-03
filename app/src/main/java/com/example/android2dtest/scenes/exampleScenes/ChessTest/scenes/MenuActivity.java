@@ -86,15 +86,5 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MusicManager.getInstance(this).onAppMinimized();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MusicManager.getInstance(this).onAppResumed();
-    }
 }

@@ -261,7 +261,7 @@ public class GameBoard extends RenderableComponent {
                 Color color = null;
                 switch (tiles[y][x].highlightType){
                     case NONE:
-                        color = ((x+y) % 2 == 0) ? boardColors.black : boardColors.white;
+                        color = ((x+y) % 2 == 0) ? boardColors.white : boardColors.black;
                         break;
                     case SELECTED:
                         color = boardColors.selectedTile;
@@ -310,7 +310,7 @@ public class GameBoard extends RenderableComponent {
     protected void getPieceInterpolation(float startX, float startY, float endX, float endY){
         interpolation.x = (int)Interpolation.pow2.apply(startX, endX, elapsedTime);
         interpolation.y = (int)Interpolation.pow2.apply(startY, endY, elapsedTime);
-        elapsedTime += GameLoop.deltaTime * 5;
+        elapsedTime += entity.scene.deltaTime * 5;
     }
     //endregion
     //region Setup Board
@@ -318,7 +318,7 @@ public class GameBoard extends RenderableComponent {
         int idx = 0;
         StringBuilder piece = new StringBuilder();
         for (int y = 7; y>-1;y--){
-            for (int x = 0; x<8;x++){
+            for (int x = 7; x>-1;x--){
 
                 while (s.charAt(idx)!=','){
                     piece.append(s.charAt(idx));

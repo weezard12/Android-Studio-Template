@@ -12,6 +12,7 @@ import com.example.android2dtest.gameLogic.myECS.components.renderable.Renderabl
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class GameEntity {
 
@@ -34,6 +35,22 @@ public class GameEntity {
         components = new ArrayList<>();
         renderableComponents = new ArrayList<>();
     }
+    public GameEntity(){
+        this(generateRandomName());
+    }
+    private static String generateRandomName() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder nameBuilder = new StringBuilder();
+
+        for (int i = 0; i < 8; i++) { // Generate a random name with 8 characters
+            int index = random.nextInt(characters.length());
+            nameBuilder.append(characters.charAt(index));
+        }
+
+        return nameBuilder.toString();
+    }
+
     public void render(float delta, Canvas canvas){
         for (RenderableComponent component : renderableComponents){
             if(component.getEnabled())

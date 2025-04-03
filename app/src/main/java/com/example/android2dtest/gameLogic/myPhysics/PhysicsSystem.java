@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Box;
 import com.example.android2dtest.gameLogic.myPhysics.shapes.Circle;
@@ -75,11 +76,13 @@ public class PhysicsSystem {
             canvas.drawRect(sX-10,sY+10,sX+10,sY-10,COLLIDER_POS);
 
         }
+
     }
 
     // Adds a collider to the system
     public static void addCollider(Collider collider) {
-        colliders.add(collider);
+        if(!colliders.contains(collider))
+            colliders.add(collider);
     }
 
     // Removes a collider from the system

@@ -9,8 +9,8 @@ import android.graphics.Point;
 
 public class RookPiece extends BasePiece {
     public boolean isEverMoved = false;
-    private Point point1 = new Point(-1,-1);
-    private Point point2 = new Point(-1,-1);
+    private final Point point1 = new Point(-1,-1);
+    private final Point point2 = new Point(-1,-1);
 
     public RookPiece(boolean isEnemy, BasePiece[][] board) {
         super(isEnemy, board);

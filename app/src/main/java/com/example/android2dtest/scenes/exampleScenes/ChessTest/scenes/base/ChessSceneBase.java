@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -18,6 +19,7 @@ import com.example.android2dtest.gameLogic.myECS.components.renderable.Sprite;
 import com.example.android2dtest.gameLogic.myECS.entities.GameEntity;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.ai.Shtokfish;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
+import com.example.android2dtest.scenes.exampleScenes.ChessTest.scenes.views.EvalBar;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -33,11 +35,7 @@ public class ChessSceneBase extends GameScene {
     public ChessSceneBase(Context context) {
         super(context);
 
-        InputStream is = getResources().openRawResource(R.raw.home_screen_bkg);
-        Bitmap bitmap = BitmapFactory.decodeStream(is);
-        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-        setBackground(drawable);
-        //setBackgroundImage(BitmapFactory.decodeResource(context.getResources(), R.raw.home_screen_bkg));
+        setTransparentBackground();
 
         if(piecesTextures == null){
             loadPiecesTextures(context);
@@ -70,6 +68,9 @@ public class ChessSceneBase extends GameScene {
         boardEntity.addComponent(gameBoard);
 
         addEntity(boardEntity);
+
+        EvalBar evalBar = new EvalBar("Eval Bar");
+        addEntity(evalBar);
     }
 
     public ChessSceneBase(Context context, AttributeSet attrs) {

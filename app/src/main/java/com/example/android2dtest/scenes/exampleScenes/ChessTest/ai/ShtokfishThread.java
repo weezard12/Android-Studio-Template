@@ -3,6 +3,7 @@ package com.example.android2dtest.scenes.exampleScenes.ChessTest.ai;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.board.GameBoard;
 import com.example.android2dtest.scenes.exampleScenes.ChessTest.pieces.baseClasses.BasePiece;
 import android.graphics.Point;
+import android.util.Log;
 
 public class ShtokfishThread extends Thread{
 
@@ -15,7 +16,14 @@ public class ShtokfishThread extends Thread{
     @Override
     public void run() {
         isCalculating = true;
+        long startTime = System.nanoTime(); // for calc time
+
         Shtokfish.getBestPosition(gameBoard.board,gameBoard.isBlackTurn);
+
+        // for calc time
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1_000_000;
+        Log.i("Shtokfish", "calculated in: " + duration + " ms");
 
         if(gameBoard.moveTheBot){
             Point[] points = finedMovedPiece(gameBoard.board, Shtokfish.currentBoardEval.whiteEval.position,gameBoard.isBlackTurn);
