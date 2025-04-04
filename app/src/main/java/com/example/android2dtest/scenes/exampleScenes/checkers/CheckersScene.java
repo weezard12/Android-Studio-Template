@@ -1,5 +1,7 @@
 package com.example.android2dtest.scenes.exampleScenes.checkers;
 
+import static com.example.android2dtest.scenes.exampleScenes.checkers.TileType.isWhite;
+
 import android.content.Context;
 import android.graphics.Point;
 import android.util.Log;
@@ -82,7 +84,7 @@ public class CheckersScene extends GameScene {
                     clearBoardFromHighlights();
                 }
                 else{
-                    if(TileType.isWhite(((CheckersTile)board.getGrid()[row][column]).getType()) != whiteToMove)
+                    if(isWhite(((CheckersTile)board.getGrid()[row][column]).getType()) != whiteToMove)
                         return;
                     clearBoardFromHighlights();
                     getMovesForPiece(row, column,new Move(column, row, boardToArray()));
@@ -119,6 +121,8 @@ public class CheckersScene extends GameScene {
         return ((CheckersTile)board.getGrid()[y][x]).getType();
     }
     private TileType getTileOnBoard(int x, int y, Move move){
+        if(!isWithinBounds(y,x))
+            return TileType.EMPTY;
         return move.position[y][x];
     }
 
@@ -191,31 +195,35 @@ public class CheckersScene extends GameScene {
         int newRow = row + 2 * direction.y;
 
         TileType pieceType = getTileOnBoard(column, row, currentMove);
+        TileType midPiece = getTileOnBoard(midColumn, midRow, currentMove);
 
-        if (isWithinBounds(midRow, midColumn) &&
-                isWithinBounds(newRow, newColumn) &&
-                getTileOnBoard(midColumn, midRow, currentMove) != TileType.EMPTY &&
-                getTileOnBoard(midColumn, midRow, currentMove) != pieceType &&
-                getTileOnBoard(newColumn, newRow, currentMove) == TileType.EMPTY) {
-
-            Move newMove = new Move(newColumn, newRow, deepCopyBoard(currentMove.position));
-
-            // Move the piece and remove the captured piece
-            newMove.position[newRow][newColumn] = pieceType;
-            newMove.position[row][column] = TileType.EMPTY;
-            newMove.position[midRow][midColumn] = TileType.EMPTY;
-
-            captures.add(newMove);
-            possibleMoves.add(newMove);
-            setTileOnBoard(newColumn, newRow, TileType.HIGHLIGHT);
-
-            // **NEW: Check for additional captures for both normal pieces & kings**
-            tryCapture(newColumn, newRow, new Point(1, 1), newMove, captures);
-            tryCapture(newColumn, newRow, new Point(-1, 1), newMove, captures);
-            tryCapture(newColumn, newRow, new Point(1, -1), newMove, captures);
-            tryCapture(newColumn, newRow, new Point(-1, -1), newMove, captures);
+        // Ensure we're not capturing an empty space or our own piece
+        if (!isWithinBounds(midRow, midColumn) ||
+                !isWithinBounds(newRow, newColumn) ||
+                midPiece == TileType.EMPTY ||
+                TileType.isSameColor(pieceType, midPiece) ||
+                getTileOnBoard(newColumn, newRow, currentMove) != TileType.EMPTY) {
+            return;
         }
+
+        // Perform capture
+        Move newMove = new Move(newColumn, newRow, deepCopyBoard(currentMove.position));
+        newMove.position[newRow][newColumn] = pieceType; // Move piece
+        newMove.position[row][column] = TileType.EMPTY; // Clear original position
+        newMove.position[midRow][midColumn] = TileType.EMPTY; // Remove captured piece
+
+        captures.add(newMove);
+        possibleMoves.add(newMove);
+        setTileOnBoard(newColumn, newRow, TileType.HIGHLIGHT);
+
+        // Recursive call for multiple jumps
+        tryCapture(newColumn, newRow, new Point(1, 1), newMove, captures);
+        tryCapture(newColumn, newRow, new Point(-1, 1), newMove, captures);
+        tryCapture(newColumn, newRow, new Point(1, -1), newMove, captures);
+        tryCapture(newColumn, newRow, new Point(-1, -1), newMove, captures);
     }
+
+
 
     private TileType[][] deepCopyBoard(TileType[][] original) {
         TileType[][] copy = new TileType[8][8];

@@ -35,4 +35,7 @@ public enum TileType {
         }
         return false;
     }
+    public static boolean isSameColor(TileType piece1, TileType piece2) {
+        return (isWhite(piece1) && isWhite(piece2)) || (!isWhite(piece1) && !isWhite(piece2));
+    }
 }
