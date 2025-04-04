@@ -1,6 +1,6 @@
 package com.example.android2dtest.gameLogic.myPhysics.shapes;
 
-import static com.example.android2dtest.main.MyUtils.distance;
+import static com.example.android2dtest.gameLogic.math.MathUtils.distance;
 
 import android.graphics.PointF;
 
