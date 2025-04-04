@@ -22,4 +22,17 @@ public enum TileType {
         }
         return null; // Return null if no matching TileType is found
     }
+    public static boolean isWhite(TileType tileType){
+        switch (tileType){
+            case BLACK_KING:
+                return false;
+            case BLACK:
+                return false;
+            case WHITE:
+                return true;
+            case WHITE_KING:
+                return true;
+        }
+        return false;
+    }
 }

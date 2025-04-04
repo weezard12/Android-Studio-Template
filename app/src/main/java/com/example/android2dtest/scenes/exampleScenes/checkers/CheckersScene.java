@@ -75,12 +75,15 @@ public class CheckersScene extends GameScene {
                             }
 
                             setBoardFromMove(move);
+                            whiteToMove = !whiteToMove;
                             break;
                         }
                     }
                     clearBoardFromHighlights();
                 }
                 else{
+                    if(TileType.isWhite(((CheckersTile)board.getGrid()[row][column]).getType()) != whiteToMove)
+                        return;
                     clearBoardFromHighlights();
                     getMovesForPiece(row, column,new Move(column, row, boardToArray()));
                 }
