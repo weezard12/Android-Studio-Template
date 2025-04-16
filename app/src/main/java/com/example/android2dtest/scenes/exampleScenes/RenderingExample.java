@@ -3,7 +3,10 @@ package com.example.android2dtest.scenes.exampleScenes;
 import android.content.Context;
 
 import com.example.android2dtest.R;
+import com.example.android2dtest.gameLogic.ContentManager;
 import com.example.android2dtest.gameLogic.GameLoop;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteAnimation;
+import com.example.android2dtest.gameLogic.myECS.components.renderable.SpriteAnimationRenderer;
 import com.example.android2dtest.gameLogic.myECS.components.touchable.DraggableComponent;
 import com.example.android2dtest.gameLogic.myECS.GameScene;
 import com.example.android2dtest.gameLogic.myECS.components.renderable.RotatableSpriteRenderer;
@@ -14,6 +17,7 @@ import com.example.android2dtest.gameLogic.myPhysics.BoxCollider;
 public class RenderingExample extends GameScene {
 
     private GameEntity textureEntity;
+    private GameEntity animationEntity;
 
     /**
      * WARNING when inheriting the class do not use the constructor scene init logic!
@@ -43,9 +47,19 @@ public class RenderingExample extends GameScene {
         textureEntity.addComponent(new DraggableComponent(textureEntity.getComponent(BoxCollider.class)));
         textureEntity.addComponent(renderer);
 
-        //textureEntity.getTransform().rotation = 180;
 
+        SpriteAnimationRenderer animationRenderer = new SpriteAnimationRenderer();
+        animationRenderer.setScale(10);
+        animationRenderer.addAnimation("attack",new SpriteAnimation(ContentManager.loadSpriteSheetFrames(getContext(),R.drawable.solider_attack1,1,6,6),6, SpriteAnimation.LoopMode.LOOP));
 
+        animationEntity = new GameEntity("animation");
+        addEntity(animationEntity);
+
+        animationEntity.setPosition(getSurfaceCenter());
+        animationEntity.addComponent(new BoxCollider(100,100));
+        animationEntity.addComponent(new DraggableComponent(textureEntity.getComponent(BoxCollider.class)));
+        animationEntity.addComponent(animationRenderer);
+        animationRenderer.playAnimation("attack");
     }
 
     @Override
